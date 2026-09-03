@@ -7,5 +7,6 @@ main = "src/worker.ts"
 directory = "./dist"
 binding = "ASSETS"
 not_found_handling = "404-page"
-# Run Worker first so www/http → https://groundedcheats.com 301s always apply
-run_worker_first = true
+# false = static HTML/images/CSS serve from CDN without billing Worker requests.
+# Worker still runs on cache misses (locale cannibal 301s). Set www→apex in Cloudflare Redirect Rules.
+run_worker_first = false

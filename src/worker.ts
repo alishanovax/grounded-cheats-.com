@@ -1,9 +1,12 @@
 /**
- * Cloudflare Worker — host + path canonicalization before static assets.
+ * Cloudflare Worker — host + path canonicalization on asset misses only.
  * Canonical site: https://groundedcheats.com (matches brand.url)
  *
- * Cannibal locale 301s live in functions/cannibal-redirects.json (not
- * public/_redirects) to stay under the Workers 100-rule _redirects cap.
+ * wrangler.toml sets run_worker_first = false so static files do not count
+ * against the Workers daily request limit (Error 1027 on free tier).
+ * This script runs when no static asset matches (cannibal locale 301s, etc.).
+ *
+ * www → apex: add a free Redirect Rule in Cloudflare (not every request).
  */
 import CANNIBAL_REDIRECTS from '../functions/cannibal-redirects.json';
 
