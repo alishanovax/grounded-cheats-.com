@@ -5,10 +5,10 @@ import SiteFooter from './SiteFooter.astro';
 import { blogUi, type LocaleCode, defaultLocale } from '../data/i18n/locales';
 import {
 	absoluteBlogUrl,
-	getAllPostsForLocale,
-	getBlogBasePath,
 	getFeaturedPosts,
+	getBlogBasePath,
 	getBlogIndexHreflangAlternates,
+	getPostsGroupedByCategory,
 } from '../data/blog/helpers';
 import { blogLabel, siteConfig } from '../data/site';
 import { brandSeo, seoPageTitle } from '../data/site-core';
@@ -23,12 +23,14 @@ interface Props {
 const { locale } = Astro.props;
 const ui = blogUi[locale];
 const t = getT(locale);
-const posts = getAllPostsForLocale(locale);
 const featured = getFeaturedPosts(locale, 3);
+const groups = getPostsGroupedByCategory(locale);
+const totalPosts = groups.reduce((n, g) => n + g.posts.length, 0) + featured.length;
 const canonicalPath = getBlogBasePath(locale);
 const canonicalURL = absoluteBlogUrl(locale);
 const hreflangAlternates = getBlogIndexHreflangAlternates(locale);
 const homeHref = getLocalizedPath('home', locale);
+const [leadFeatured, ...sideFeatured] = featured;
 
 const pageTitle = locale === defaultLocale ? seoPageTitle(brandSeo.blogTitle) : ui.blogTitle;
 const pageDescription =
@@ -44,7 +46,8 @@ const articleListSchema = {
 	isPartOf: { '@id': `${siteConfig.url}/#website` },
 	mainEntity: {
 		'@type': 'ItemList',
-		itemListElement: posts.map((post, i) => ({
+		numberOfItems: totalPosts,
+		itemListElement: [...featured, ...groups.flatMap((g) => g.posts)].map((post, i) => ({
 			'@type': 'ListItem',
 			position: i + 1,
 			url: absoluteBlogUrl(locale, post.translation.slug),
@@ -68,64 +71,93 @@ const articleListSchema = {
 	<Navbar locale={locale} />
 	<main class="blog">
 		<div class="shell blog__inner">
-		<header class="blog__hero">
-			<p class="blog__eyebrow" data-edit="blogLabel">{blogLabel}</p>
-			<h1>{ui.blogH1}</h1>
-			<p class="blog__intro">{ui.blogIntro}</p>
-		</header>
+			<header class="blog__hero">
+				<p class="blog__eyebrow" data-edit="blogLabel">{blogLabel}</p>
+				<h1>{ui.blogH1}</h1>
+				<p class="blog__intro">{ui.blogIntro}</p>
+				<p class="blog__count">{totalPosts} guides · Updated for Grounded PC</p>
+			</header>
 
-		{
-			featured.length > 0 && (
-				<section class="blog__featured" aria-label={t('common.featured')}>
-					{
-						featured.map((post, index) => (
-							<a class="blog__feature-card" href={post.canonicalPath}>
-								<img
-									src={post.imageSrc}
-									alt={post.translation.imageAlt}
-									width="640"
-									height="360"
-									loading={index === 0 ? 'eager' : 'lazy'}
-									decoding="async"
-									fetchpriority={index === 0 ? 'high' : undefined}
-								/>
-								<div>
-									<span class="blog__cat">{post.category}</span>
-									<h2>{post.translation.title}</h2>
-									<p>{post.translation.intro}</p>
-									<span class="blog__more">{ui.readMore}</span>
-								</div>
-							</a>
-						))
-					}
-				</section>
-			)
-		}
-
-		<section class="blog__list" aria-label={ui.allPosts}>
 			{
-				posts.map((post) => (
-					<article class="blog__card">
-						<a href={post.canonicalPath}>
+				leadFeatured && (
+					<section class="blog__featured" aria-label={t('common.featured')}>
+						<a class="blog__lead" href={leadFeatured.canonicalPath}>
 							<img
-								src={post.imageSrc}
-								alt={post.translation.imageAlt}
-								width="480"
-								height="270"
-								loading="lazy"
+								src={leadFeatured.imageSrc}
+								alt={leadFeatured.translation.imageAlt}
+								width="960"
+								height="540"
+								loading="eager"
 								decoding="async"
+								fetchpriority="high"
 							/>
-							<span class="blog__cat">{post.category}</span>
-							<h2>{post.translation.title}</h2>
-							<p>{post.translation.intro}</p>
-							<span class="blog__meta">
-								{ui.updated} {post.updated}
-							</span>
+							<div class="blog__lead-copy">
+								<span class="blog__cat">{leadFeatured.category}</span>
+								<h2>{leadFeatured.translation.title}</h2>
+								<p>{leadFeatured.translation.intro}</p>
+								<span class="blog__more">{ui.readMore}</span>
+							</div>
 						</a>
-					</article>
+						{
+							sideFeatured.length > 0 && (
+								<div class="blog__featured-side">
+									{sideFeatured.map((post) => (
+										<a class="blog__side-card" href={post.canonicalPath}>
+											<img
+												src={post.imageSrc}
+												alt={post.translation.imageAlt}
+												width="480"
+												height="270"
+												loading="lazy"
+												decoding="async"
+											/>
+											<div>
+												<span class="blog__cat">{post.category}</span>
+												<h3>{post.translation.title}</h3>
+											</div>
+										</a>
+									))}
+								</div>
+							)
+						}
+					</section>
+				)
+			}
+
+			{
+				groups.map((group) => (
+					<section class="blog__group" aria-labelledby={`blog-cat-${group.category.replace(/\s+/g, '-').toLowerCase()}`}>
+						<div class="blog__group-head">
+							<h2 id={`blog-cat-${group.category.replace(/\s+/g, '-').toLowerCase()}`}>{group.category}</h2>
+							<span class="blog__group-count">{group.posts.length}</span>
+						</div>
+						<div class="blog__grid">
+							{group.posts.map((post) => (
+								<article class="blog__card">
+									<a href={post.canonicalPath}>
+										<img
+											src={post.imageSrc}
+											alt={post.translation.imageAlt}
+											width="480"
+											height="270"
+											loading="lazy"
+											decoding="async"
+										/>
+										<div class="blog__card-body">
+											<span class="blog__cat">{post.category}</span>
+											<h3>{post.translation.title}</h3>
+											<p>{post.translation.intro}</p>
+											<span class="blog__meta">
+												{ui.updated} {post.updated}
+											</span>
+										</div>
+									</a>
+								</article>
+							))}
+						</div>
+					</section>
 				))
 			}
-		</section>
 		</div>
 	</main>
 	<SiteFooter locale={locale} />
@@ -133,129 +165,266 @@ const articleListSchema = {
 
 <style>
 	.blog {
-		padding: 2.5rem 0 4rem;
+		padding: 2.25rem 0 4rem;
+		background:
+			radial-gradient(ellipse 80% 50% at 0% 0%, color-mix(in srgb, #ff8c00 10%, transparent), transparent 55%),
+			var(--bg);
 	}
 
 	.blog__inner {
 		display: grid;
-		gap: 0;
+		gap: 2.5rem;
 	}
+
 	.blog__hero {
-		margin-bottom: 2.5rem;
+		max-width: 44rem;
 	}
+
 	.blog__eyebrow {
 		margin: 0 0 0.5rem;
-		color: var(--magenta-soft);
+		color: #f1c40f;
 		font-weight: 700;
-		letter-spacing: 0.08em;
+		letter-spacing: 0.1em;
 		text-transform: uppercase;
 		font-size: 0.75rem;
 	}
+
 	.blog__hero h1 {
 		margin: 0 0 0.75rem;
-		font-size: clamp(2.2rem, 5vw, 3.4rem);
-		line-height: 1.05;
+		font-family: var(--font-display);
+		font-size: clamp(2rem, 4.5vw, 3rem);
+		line-height: 1.08;
+		letter-spacing: -0.03em;
+		color: var(--ink);
 	}
+
 	.blog__intro {
-		max-width: 42rem;
-		color: rgba(255, 255, 255, 0.72);
-		font-size: 1.05rem;
+		margin: 0;
+		max-width: 40rem;
+		color: var(--ink-muted);
+		font-size: 1.02rem;
+		line-height: 1.65;
 	}
+
+	.blog__count {
+		margin: 0.75rem 0 0;
+		font-size: 0.8125rem;
+		font-weight: 600;
+		color: var(--ink-faint);
+	}
+
 	.blog__featured {
 		display: grid;
-		gap: 1.25rem;
-		margin-bottom: 2.5rem;
+		grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+		gap: 1rem;
 	}
-	.blog__feature-card {
-		display: grid;
-		grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
-		gap: 1.25rem;
-		padding: 1rem;
-		border: 1px solid var(--line);
-		border-radius: var(--radius-md, 0.75rem);
+
+	.blog__lead {
+		display: flex;
+		flex-direction: column;
+		min-height: 100%;
+		border: 1px solid color-mix(in srgb, #1b4d3e 40%, var(--line));
+		border-radius: var(--radius-lg);
+		overflow: hidden;
 		background: var(--bg-panel);
 		text-decoration: none;
 		color: inherit;
+		transition: border-color 0.2s ease, box-shadow 0.2s ease;
 	}
-	.blog__feature-card img {
+
+	.blog__lead:hover {
+		border-color: color-mix(in srgb, #ff8c00 40%, var(--line));
+		box-shadow: 0 12px 32px color-mix(in srgb, #ff8c00 12%, transparent);
+	}
+
+	.blog__lead img {
 		width: 100%;
-		height: 100%;
-		max-height: 240px;
+		aspect-ratio: 16 / 9;
 		object-fit: cover;
 	}
-	.blog__feature-card h2 {
-		margin: 0.4rem 0 0.6rem;
-		font-size: 1.35rem;
-	}
-	.blog__list {
+
+	.blog__lead-copy {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
-		gap: 1.25rem;
+		gap: 0.55rem;
+		padding: 1.15rem 1.2rem 1.25rem;
 	}
-	.blog__card a {
-		display: block;
-		height: 100%;
-		padding: 0.85rem;
+
+	.blog__lead-copy h2 {
+		margin: 0;
+		font-size: clamp(1.2rem, 2vw, 1.55rem);
+		line-height: 1.2;
+	}
+
+	.blog__lead-copy p {
+		margin: 0;
+		color: var(--ink-muted);
+		font-size: 0.92rem;
+		line-height: 1.55;
+	}
+
+	.blog__featured-side {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.blog__side-card {
+		display: grid;
+		grid-template-columns: 7.5rem minmax(0, 1fr);
+		gap: 0.85rem;
+		align-items: center;
+		padding: 0.75rem;
 		border: 1px solid var(--line);
-		border-radius: var(--radius-md, 0.75rem);
+		border-radius: var(--radius-md);
 		background: var(--bg-panel);
 		text-decoration: none;
 		color: inherit;
+		transition: border-color 0.2s ease;
 	}
+
+	.blog__side-card:hover {
+		border-color: color-mix(in srgb, #ff8c00 35%, var(--line));
+	}
+
+	.blog__side-card img {
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		object-fit: cover;
+		border-radius: calc(var(--radius-md) - 4px);
+	}
+
+	.blog__side-card h3 {
+		margin: 0.25rem 0 0;
+		font-size: 0.95rem;
+		line-height: 1.3;
+	}
+
+	.blog__group {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.blog__group-head {
+		display: flex;
+		align-items: center;
+		gap: 0.65rem;
+		padding-bottom: 0.65rem;
+		border-bottom: 1px solid var(--line-soft);
+	}
+
+	.blog__group-head h2 {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: 1.15rem;
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		color: var(--ink);
+	}
+
+	.blog__group-count {
+		display: inline-flex;
+		align-items: center;
+		min-height: 1.5rem;
+		padding: 0 0.5rem;
+		border-radius: 999px;
+		background: color-mix(in srgb, #1b4d3e 35%, var(--bg-elevated));
+		color: #f1c40f;
+		font-size: 0.72rem;
+		font-weight: 700;
+	}
+
+	.blog__grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.blog__card a {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		border: 1px solid var(--line);
+		border-radius: var(--radius-md);
+		overflow: hidden;
+		background: var(--bg-panel);
+		text-decoration: none;
+		color: inherit;
+		transition: border-color 0.2s ease, transform 0.2s ease;
+	}
+
+	.blog__card a:hover {
+		border-color: color-mix(in srgb, #ff8c00 35%, var(--line));
+		transform: translateY(-2px);
+	}
+
 	.blog__card img {
 		width: 100%;
 		aspect-ratio: 16 / 9;
 		object-fit: cover;
-		margin-bottom: 0.75rem;
 	}
-	.blog__card h2 {
-		margin: 0.35rem 0 0.5rem;
-		font-size: 1.05rem;
-		line-height: 1.25;
+
+	.blog__card-body {
+		display: grid;
+		gap: 0.4rem;
+		padding: 0.9rem 1rem 1rem;
+		flex: 1;
 	}
-	.blog__card p,
-	.blog__feature-card p {
+
+	.blog__card h3 {
 		margin: 0;
-		color: rgba(255, 255, 255, 0.68);
-		font-size: 0.92rem;
+		font-size: 1rem;
+		line-height: 1.3;
 	}
+
+	.blog__card p {
+		margin: 0;
+		color: var(--ink-muted);
+		font-size: 0.86rem;
+		line-height: 1.5;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
+		overflow: hidden;
+	}
+
 	.blog__cat {
 		display: inline-block;
-		color: var(--magenta-soft);
-		font-size: 0.72rem;
+		color: #f1c40f;
+		font-size: 0.68rem;
 		font-weight: 700;
 		text-transform: uppercase;
-		letter-spacing: 0.06em;
+		letter-spacing: 0.07em;
 	}
+
 	.blog__more,
 	.blog__meta {
 		display: inline-block;
-		margin-top: 0.75rem;
-		color: rgba(255, 255, 255, 0.55);
-		font-size: 0.8rem;
+		margin-top: 0.35rem;
+		font-size: 0.78rem;
 		font-weight: 600;
+		color: var(--ink-faint);
 	}
+
 	.blog__more {
-		color: var(--magenta-soft);
+		color: #ff8c00;
 	}
-	@media (max-width: 760px) {
-		.blog__feature-card {
+
+	@media (max-width: 960px) {
+		.blog__featured {
 			grid-template-columns: 1fr;
 		}
 
-		.blog__list {
-			grid-template-columns: 1fr;
-			gap: 1rem;
-		}
-
-		.blog__card a {
-			padding: 0.75rem;
+		.blog__grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 	}
 
-	@media (max-width: 480px) {
-		.blog__feature-card h2 {
-			font-size: 1.2rem;
+	@media (max-width: 600px) {
+		.blog__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.blog__side-card {
+			grid-template-columns: 6.5rem minmax(0, 1fr);
 		}
 	}
 </style>

@@ -13,6 +13,8 @@ type NavLink = {
 type Props = {
 	locale: string;
 	siteName: string;
+	logoSrc: string;
+	logoAlt: string;
 	checkoutUrl: string;
 	currentPath: string;
 	homeHref: string;
@@ -37,6 +39,8 @@ const icons: Record<string, string> = {
 function NavbarInner({
 	locale,
 	siteName,
+	logoSrc,
+	logoAlt,
 	checkoutUrl,
 	currentPath,
 	homeHref,
@@ -96,7 +100,8 @@ function NavbarInner({
 		<header className={`site-header${scrolled || open ? ' is-scrolled' : ''}${open ? ' is-open' : ''}`} data-nav>
 			<div className="shell site-header__bar">
 				<a className="site-brand" href={homeHref} data-edit="name">
-					{siteName}
+					<img className="site-brand__logo" src={logoSrc} alt={logoAlt} width={32} height={32} decoding="async" />
+					<span className="site-brand__name">{siteName}</span>
 				</a>
 				<nav className="site-nav" aria-label={t('nav.primaryAria')}>
 					{navLinks.map((item) => (

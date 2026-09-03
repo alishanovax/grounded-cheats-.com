@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Completes escape-from-tarkov-cheats SEO audit: add missing pages, fix leftovers, strip Zadeyo from meta.
+ * Completes escape-from-grounded-cheats SEO audit: add missing pages, fix leftovers, strip Zadeyo from meta.
  * Run: node scripts/complete-seo-audit.mjs
  */
 import { readFile, writeFile, mkdir, access } from 'node:fs/promises';
@@ -11,70 +11,70 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const NODE = 'C:\\Program Files\\nodejs\\node.exe';
 
 const EXTRA_PAGES = [
-	{ id: 'hacks', dir: 'tarkov-cheats', pageId: 'hacks' },
-	{ id: 'cheat-download', dir: 'tarkov-cheat-download', pageId: 'cheat-download' },
-	{ id: 'mod-menu', dir: 'tarkov-mod-menu', pageId: 'mod-menu' },
-	{ id: 'soft-aim', dir: 'tarkov-soft-aim', pageId: 'soft-aim' },
-	{ id: 'best-cheats', dir: 'best-tarkov-cheats', pageId: 'best-cheats' },
-	{ id: 'aimbot-hack', dir: 'tarkov-aimbot-hack', pageId: 'aimbot-hack' },
-	{ id: 'esp-hack', dir: 'tarkov-esp-hack', pageId: 'esp-hack' },
-	{ id: 'unlock-all', dir: 'tarkov-unlock-all', pageId: 'unlock-all' },
+	{ id: 'hacks', dir: 'grounded-cheats', pageId: 'hacks' },
+	{ id: 'cheat-download', dir: 'grounded-trainer-download', pageId: 'cheat-download' },
+	{ id: 'mod-menu', dir: 'grounded-mod-menu', pageId: 'mod-menu' },
+	{ id: 'soft-aim', dir: 'grounded-infinite-health', pageId: 'soft-aim' },
+	{ id: 'best-cheats', dir: 'best-grounded-cheats', pageId: 'best-cheats' },
+	{ id: 'trainer-hack', dir: 'grounded-super-damage', pageId: 'trainer-hack' },
+	{ id: 'esp-hack', dir: 'grounded-noclip', pageId: 'esp-hack' },
+	{ id: 'unlock-all', dir: 'grounded-unlock-all', pageId: 'unlock-all' },
 ];
 
 const GLOBAL_REPLACEMENTS = [
-	[/tarkov-tarkov/g, 'tarkov'],
-	[/battleye-bypass-tarkov/g, 'battleye-bypass'],
-	[/Escape from Tarkov/g, 'Escape from Tarkov'],
-	[/Escape from Tarkov/g, 'Escape from Tarkov'],
-	[/Call of Duty/g, 'Escape from Tarkov'],
-	[/Tarkov Wallhack/g, 'Escape from Tarkov Wallhack'],
-	[/Tarkov Radar Hack/g, 'Escape from Tarkov Radar Hack'],
-	[/Tarkov Cheat Features/g, 'Escape from Tarkov Cheat Features'],
-	[/Tarkov Cheat Pricing/g, 'Escape from Tarkov Cheat Pricing'],
-	[/Tarkov Cheat Setup/g, 'Escape from Tarkov Cheat Setup'],
-	[/Tarkov Cheat Status/g, 'Escape from Tarkov Cheat Status'],
-	[/Tarkov Cheat Support/g, 'Escape from Tarkov Cheat Support'],
-	[/Tarkov squad fight/g, 'Escape from Tarkov squad fight'],
-	[/Tarkov squad builder/g, 'Escape from Tarkov loadout builder'],
-	[/Tarkov store header/g, 'Escape from Tarkov header'],
-	[/Tarkov wasteland combat/g, 'Escape from Tarkov battle royale combat'],
-	[/Tarkov loadout builder/g, 'Escape from Tarkov loadout builder'],
-	[/Tarkov pricing/g, 'Escape from Tarkov pricing'],
-	[/Tarkov BattlEye anti-cheat/g, 'Escape from Tarkov BattlEye anti-cheat'],
-	[/on Tarkov/g, 'on Escape from Tarkov'],
-	[/for Tarkov/g, 'for Escape from Tarkov'],
-	[/Tarkov guides/g, 'Escape from Tarkov guides'],
-	[/Tarkov guide/g, 'Escape from Tarkov guide'],
-	[/Tarkov hileleri/g, 'Escape from Tarkov hileleri'],
-	[/Tarkov hile/g, 'Escape from Tarkov hile'],
-	[/Tarkov hileleri/g, 'Escape from Tarkov hileleri'],
-	[/cheatów Tarkov/g, 'cheatów Escape from Tarkov'],
-	[/cheat Tarkov/g, 'cheat Escape from Tarkov'],
-	[/cheats Tarkov/g, 'cheats Escape from Tarkov'],
-	[/trucos Tarkov/g, 'trucos Escape from Tarkov'],
-	[/triche Tarkov/g, 'triche Escape from Tarkov'],
-	[/trucchi Tarkov/g, 'trucchi Escape from Tarkov'],
-	[/Wallhack Tarkov/g, 'Escape from Tarkov Wallhack'],
-	[/cheat Tarkov undetected/g, 'cheat Escape from Tarkov undetected'],
-	[/cheats Tarkov undetected/g, 'cheats Escape from Tarkov undetected'],
+	[/grounded-grounded/g, 'grounded'],
+	[/anti-cheat-bypass-grounded/g, 'anti-cheat-bypass'],
+	[/Grounded/g, 'Grounded'],
+	[/Grounded/g, 'Grounded'],
+	[/Call of Duty/g, 'Grounded'],
+	[/Grounded God mode/g, 'Grounded God mode'],
+	[/Grounded Radar Hack/g, 'Grounded Radar Hack'],
+	[/Grounded Cheat Features/g, 'Grounded Cheat Features'],
+	[/Grounded Cheat Pricing/g, 'Grounded Cheat Pricing'],
+	[/Grounded Cheat Setup/g, 'Grounded Cheat Setup'],
+	[/Grounded Cheat Status/g, 'Grounded Cheat Status'],
+	[/Grounded Cheat Support/g, 'Grounded Cheat Support'],
+	[/Grounded squad fight/g, 'Grounded squad fight'],
+	[/Grounded squad builder/g, 'Grounded loadout builder'],
+	[/Grounded store header/g, 'Grounded header'],
+	[/Grounded wasteland combat/g, 'Grounded battle royale combat'],
+	[/Grounded loadout builder/g, 'Grounded loadout builder'],
+	[/Grounded pricing/g, 'Grounded pricing'],
+	[/Grounded Easy Anti-Cheat/g, 'Grounded Easy Anti-Cheat'],
+	[/on Grounded/g, 'on Grounded'],
+	[/for Grounded/g, 'for Grounded'],
+	[/Grounded guides/g, 'Grounded guides'],
+	[/Grounded guide/g, 'Grounded guide'],
+	[/Grounded hileleri/g, 'Grounded hileleri'],
+	[/Grounded hile/g, 'Grounded hile'],
+	[/Grounded hileleri/g, 'Grounded hileleri'],
+	[/cheatów Grounded/g, 'cheatów Grounded'],
+	[/cheat Grounded/g, 'cheat Grounded'],
+	[/cheats Grounded/g, 'cheats Grounded'],
+	[/trucos Grounded/g, 'trucos Grounded'],
+	[/triche Grounded/g, 'triche Grounded'],
+	[/trucchi Grounded/g, 'trucchi Grounded'],
+	[/God mode Grounded/g, 'Grounded God mode'],
+	[/cheat Grounded undetected/g, 'cheat Grounded undetected'],
+	[/cheats Grounded undetected/g, 'cheats Grounded undetected'],
 	[/Verdansk beams/g, 'long-range AR beams'],
 	[/scav-run room clears/g, 'close-quarters room clears'],
 	[/Verdansk and Urzikstan/g, 'Verdansk and scav-run'],
 	[/Verdansk, Urzikstan/g, 'Verdansk, scav-run'],
-	[/raid and scav-run/g, 'raid and scav-run'],
+	[/session and scav-run/g, 'session and scav-run'],
 	[/Activision's anti-cheat/g, "Epic Games' anti-cheat"],
 	[/Activision anti-cheat/g, 'Epic Games anti-cheat'],
 	[/Activision ships/g, 'Epic Games ships'],
 	[/Activision security/g, 'Epic Games security'],
 	[/Activision bans/g, 'Epic Games bans'],
 	[/Activision/g, 'Epic Games'],
-	[/battleye/gi, 'battleye'],
-	[/BattlEye/g, 'BattlEye anti-cheat'],
-	[/escape-from-tarkov-cheats/g, 'escape-from-tarkov-cheats'],
-	[/escape-from-tarkov/g, 'tarkov'],
-	[/Undetected Wallhack for Call of Duty/g, 'Undetected Wallhack for Escape from Tarkov'],
-	[/How ESP wallhack, radar, and Aimbot rebuild after Call of Duty anti-cheat/g,
-		'How ESP wallhack, radar, and Aimbot rebuild after Escape from Tarkov anti-cheat'],
+	[/easy-anti-cheat/gi, 'anti-cheat'],
+	[/Easy Anti-Cheat/g, 'Easy Anti-Cheat'],
+	[/escape-from-grounded-cheats/g, 'escape-from-grounded-cheats'],
+	[/escape-from-grounded/g, 'grounded'],
+	[/Undetected God mode for Call of Duty/g, 'Undetected God mode for Grounded'],
+	[/How ESP god mode, radar, and Trainer rebuild after Call of Duty anti-cheat/g,
+		'How ESP god mode, radar, and Trainer rebuild after Grounded anti-cheat'],
 ];
 
 /** Remove Zadeyo from meta description/title strings only */
@@ -90,7 +90,7 @@ function stripZadeyoFromMeta(text) {
 		.replace(/\s*Zadeyo delivery\.?/gi, 'instant digital delivery.')
 		.replace(/\s*and Zadeyo delivery\.?/gi, ' and instant digital delivery.')
 		.replace(/\|\s*Instant Zadeyo Delivery/g, '| Instant Digital Delivery')
-		.replace(/Buy on Zadeyo/g, 'Buy Tarkov Cheats')
+		.replace(/Buy on Zadeyo/g, 'Buy Grounded Cheats')
 		.replace(/\s{2,}/g, ' ')
 		.trim();
 }
@@ -169,38 +169,38 @@ import LocalizedPage from '../../components/LocalizedPage.astro';
 async function fixLocalesBlogUi() {
 	const file = path.join(ROOT, 'src', 'data', 'i18n', 'locales.ts');
 	let content = await readFile(file, 'utf8');
-	content = content.replace(/Tarkov guides/g, 'Escape from Tarkov guides');
-	content = content.replace(/Tarkov guide/g, 'Escape from Tarkov guide');
-	content = content.replace(/Tarkov hileleri/g, 'Escape from Tarkov hileleri');
-	content = content.replace(/Tarkov hile/g, 'Escape from Tarkov hile');
-	content = content.replace(/cheat Tarkov/g, 'cheat Escape from Tarkov');
-	content = content.replace(/cheats Tarkov/g, 'cheats Escape from Tarkov');
-	content = content.replace(/trucos Tarkov/g, 'trucos Escape from Tarkov');
-	content = content.replace(/triche Tarkov/g, 'triche Escape from Tarkov');
-	content = content.replace(/trucchi Tarkov/g, 'trucchi Escape from Tarkov');
-	content = content.replace(/cheatów Tarkov/g, 'cheatów Escape from Tarkov');
-	content = content.replace(/читов Tarkov/g, 'читов Escape from Tarkov');
-	content = content.replace(/читів Tarkov/g, 'читів Escape from Tarkov');
-	content = content.replace(/Tarkovチート/g, 'Escape from Tarkovチート');
-	content = content.replace(/Tarkov 치트/g, 'Escape from Tarkov 치트');
-	content = content.replace(/Tarkov作弊/g, 'Escape from Tarkov作弊');
-	content = content.replace(/Tarkov rehberleri/g, 'Escape from Tarkov rehberleri');
-	content = content.replace(/Tarkov gidsen/g, 'Escape from Tarkov gidsen');
-	content = content.replace(/Tarkov průvodce/g, 'Escape from Tarkov průvodce');
-	content = content.replace(/Tarkov guider/g, 'Escape from Tarkov guider');
-	content = content.replace(/Tarkov related/g, 'Escape from Tarkov related');
-	content = content.replace(/Tarkov ガイド/g, 'Escape from Tarkov ガイド');
-	content = content.replace(/Tarkov 가이드/g, 'Escape from Tarkov 가이드');
-	content = content.replace(/Tarkov指南/g, 'Escape from Tarkov指南');
-	content = content.replace(/Tarkov गाइड/g, 'Escape from Tarkov गाइड');
-	content = content.replace(/Tarkov panduan/g, 'Escape from Tarkov panduan');
-	content = content.replace(/Tarkov คู่มือ/g, 'Escape from Tarkov คู่มือ');
-	content = content.replace(/Tarkov hướng dẫn/g, 'Escape from Tarkov hướng dẫn');
+	content = content.replace(/Grounded guides/g, 'Grounded guides');
+	content = content.replace(/Grounded guide/g, 'Grounded guide');
+	content = content.replace(/Grounded hileleri/g, 'Grounded hileleri');
+	content = content.replace(/Grounded hile/g, 'Grounded hile');
+	content = content.replace(/cheat Grounded/g, 'cheat Grounded');
+	content = content.replace(/cheats Grounded/g, 'cheats Grounded');
+	content = content.replace(/trucos Grounded/g, 'trucos Grounded');
+	content = content.replace(/triche Grounded/g, 'triche Grounded');
+	content = content.replace(/trucchi Grounded/g, 'trucchi Grounded');
+	content = content.replace(/cheatów Grounded/g, 'cheatów Grounded');
+	content = content.replace(/читов Grounded/g, 'читов Grounded');
+	content = content.replace(/читів Grounded/g, 'читів Grounded');
+	content = content.replace(/Groundedチート/g, 'Groundedチート');
+	content = content.replace(/Grounded 치트/g, 'Grounded 치트');
+	content = content.replace(/Grounded作弊/g, 'Grounded作弊');
+	content = content.replace(/Grounded rehberleri/g, 'Grounded rehberleri');
+	content = content.replace(/Grounded gidsen/g, 'Grounded gidsen');
+	content = content.replace(/Grounded průvodce/g, 'Grounded průvodce');
+	content = content.replace(/Grounded guider/g, 'Grounded guider');
+	content = content.replace(/Grounded related/g, 'Grounded related');
+	content = content.replace(/Grounded ガイド/g, 'Grounded ガイド');
+	content = content.replace(/Grounded 가이드/g, 'Grounded 가이드');
+	content = content.replace(/Grounded指南/g, 'Grounded指南');
+	content = content.replace(/Grounded गाइड/g, 'Grounded गाइड');
+	content = content.replace(/Grounded panduan/g, 'Grounded panduan');
+	content = content.replace(/Grounded คู่มือ/g, 'Grounded คู่มือ');
+	content = content.replace(/Grounded hướng dẫn/g, 'Grounded hướng dẫn');
 	await writeFile(file, content, 'utf8');
 	console.log('Fixed locales.ts blogUi');
 }
 
-console.log('=== Tarkov Cheats SEO completion ===\n');
+console.log('=== Grounded Cheats SEO completion ===\n');
 await applyGlobalFixes();
 await createExtraPages();
 await fixLocalesBlogUi();

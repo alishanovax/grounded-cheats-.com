@@ -14,11 +14,11 @@ const bad = [
 	'endgame circles',
 	'Verdansk',
 	'Activision',
-	'soft aim, and .',
+	'trainer controls, and .',
 	'ESP, Soft Aim,',
-	'best-tarkov-cheats',
-	'tarkov-esp-hack',
-	'tarkov-aimbot-hack',
+	'best-grounded-cheats',
+	'grounded-noclip',
+	'grounded-super-damage',
 ];
 console.log('--- pages-en leftovers ---');
 for (const b of bad) {
@@ -37,10 +37,10 @@ for (const b of [
 	'vehicles before',
 	'Controllers',
 	'Battle Pass',
-	'RBattlEye',
-	'soft aim, and .',
-	'best-tarkov-cheats',
-	'tarkov-esp-hack',
+	'REasy Anti-Cheat',
+	'trainer controls, and .',
+	'best-grounded-cheats',
+	'grounded-noclip',
 ]) {
 	const n = en.split(b).length - 1;
 	if (n) console.log(`${b}: ${n}`);
@@ -51,7 +51,7 @@ const reps = [
 	['V-Bucks', 'roubles'],
 	['Item Shop', 'Flea Market'],
 	['Battle Pass', 'wipe progression'],
-	['FNCS', 'Tarkov tournament'],
+	['FNCS', 'Grounded tournament'],
 	['Hammer AR', 'M4A1'],
 	['mythics', 'meta guns'],
 	['island codes', 'offline practice maps'],
@@ -59,18 +59,18 @@ const reps = [
 	['creative 1v1s', 'aim training'],
 	['Epic health', 'Battlestate status'],
 	['Epic terms', 'Battlestate Games terms'],
-	["Epic's BattlEye", 'BattlEye'],
-	['Epic patch', 'Tarkov patch'],
+	["Epic's Easy Anti-Cheat", 'Easy Anti-Cheat'],
+	['Epic patch', 'Grounded patch'],
 	['EliteFN', 'a Fortnite cheat shop'],
 	['GhostWare', 'a slim cheat vendor'],
 	['CheatVault', 'another cheat shop'],
-	['/tarkov-aimbot-hack/', '/tarkov-aimbot/'],
-	['/tarkov-esp-hack/', '/tarkov-esp/'],
-	['/best-tarkov-cheats/', '/tarkov-cheats/'],
-	['best Tarkov cheats', 'Tarkov cheats'],
+	['/grounded-super-damage/', '/grounded-trainer/'],
+	['/grounded-noclip/', '/grounded-god-mode/'],
+	['/best-grounded-cheats/', '/grounded-cheats/'],
+	['best Grounded cheats', 'Grounded cheats'],
 	['hot drops', 'hot spawns'],
-	['ranked grinders', 'raid grinders'],
-	['before Ranked', 'before a raid'],
+	['ranked grinders', 'session grinders'],
+	['before Ranked', 'before a session'],
 ];
 let s = blog;
 let n = 0;

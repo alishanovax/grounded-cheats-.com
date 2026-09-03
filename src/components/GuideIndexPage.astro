@@ -1,0 +1,275 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from './Navbar.astro';
+import SiteFooter from './SiteFooter.astro';
+import { defaultLocale, type LocaleCode } from '../data/i18n/locales';
+import { siteConfig } from '../data/site';
+import { getLocalizedPath } from '../data/i18n/routing';
+import {
+	absoluteGuideUrl,
+	getGuidesBasePath,
+	getNativeGroundedGuides,
+	getShuffledExternalGuides,
+} from '../data/guides/helpers';
+import { seoPageTitle } from '../data/site-core';
+import { seoDescription } from '../data/brand';
+
+interface Props {
+	locale?: LocaleCode;
+}
+
+const locale = Astro.props.locale ?? defaultLocale;
+const nativeGuides = getNativeGroundedGuides(locale);
+const otherGuides = getShuffledExternalGuides(locale);
+const canonicalPath = getGuidesBasePath(locale);
+const canonicalURL = absoluteGuideUrl();
+const homeHref = getLocalizedPath('home', locale);
+
+const pageTitle = seoPageTitle('Grounded Guides Hub');
+const pageDescription = seoDescription(
+	'Grounded trainer and cheat guides plus curated guides for other PC games — setup, features, and gameplay tips.',
+);
+---
+
+<Layout
+	title={pageTitle}
+	description={pageDescription}
+	canonicalPath={canonicalPath}
+	locale={locale}
+	ogImage={siteConfig.defaultOgImage}
+	ogImageAlt="Grounded guides hub"
+	breadcrumbs={[{ label: 'Home', href: homeHref }, { label: 'Guides' }]}
+>
+	<Navbar locale={locale} />
+	<main class="guides">
+		<div class="shell guides__inner">
+			<header class="guides__hero">
+				<p class="guides__eyebrow">Guides</p>
+				<h1>Grounded Guides</h1>
+				<p class="guides__intro">
+					Start with our Grounded trainer, setup, and cheat guides. Scroll down for guides covering other PC games.
+				</p>
+			</header>
+
+			<section class="guides__section" aria-labelledby="guides-native-heading">
+				<div class="guides__section-head">
+					<h2 id="guides-native-heading">Grounded Guides</h2>
+					<span class="guides__count">{nativeGuides.length}</span>
+				</div>
+				<div class="guides__grid">
+					{
+						nativeGuides.map((guide) => (
+							<article class="guides__card">
+								<a href={guide.href}>
+									<img
+										src={guide.imageSrc}
+										alt={guide.imageAlt}
+										width="480"
+										height="270"
+										loading="lazy"
+										decoding="async"
+									/>
+									<div class="guides__card-body">
+										<span class="guides__cat">{guide.category}</span>
+										<h3>{guide.title}</h3>
+										<p>{guide.intro}</p>
+									</div>
+								</a>
+							</article>
+						))
+					}
+				</div>
+			</section>
+
+			<section class="guides__section guides__section--other" aria-labelledby="guides-other-heading">
+				<div class="guides__section-head">
+					<h2 id="guides-other-heading">Other Games Guides</h2>
+					<span class="guides__count">{otherGuides.length}</span>
+				</div>
+				<div class="guides__grid">
+					{
+						otherGuides.map((guide) => (
+							<article class="guides__card">
+								<a href={guide.canonicalPath}>
+									<img
+										src={guide.imageSrc}
+										alt={guide.translation.imageAlt}
+										width="480"
+										height="270"
+										loading="lazy"
+										decoding="async"
+									/>
+									<div class="guides__card-body">
+										<span class="guides__cat">{guide.game}</span>
+										<h3>{guide.translation.title}</h3>
+										<p>{guide.translation.intro}</p>
+									</div>
+								</a>
+							</article>
+						))
+					}
+				</div>
+			</section>
+		</div>
+	</main>
+	<SiteFooter locale={locale} />
+</Layout>
+
+<style>
+	.guides {
+		padding: 2.25rem 0 4rem;
+		background:
+			radial-gradient(ellipse 80% 50% at 0% 0%, color-mix(in srgb, #ff8c00 10%, transparent), transparent 55%),
+			var(--bg);
+	}
+
+	.guides__inner {
+		display: grid;
+		gap: 2.5rem;
+	}
+
+	.guides__hero {
+		max-width: 44rem;
+	}
+
+	.guides__eyebrow {
+		margin: 0 0 0.5rem;
+		color: #f1c40f;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		font-size: 0.75rem;
+	}
+
+	.guides__hero h1 {
+		margin: 0 0 0.75rem;
+		font-family: var(--font-display);
+		font-size: clamp(2rem, 4.5vw, 3rem);
+		line-height: 1.08;
+		letter-spacing: -0.03em;
+		color: var(--ink);
+	}
+
+	.guides__intro {
+		margin: 0;
+		max-width: 40rem;
+		color: var(--ink-muted);
+		font-size: 1.02rem;
+		line-height: 1.65;
+	}
+
+	.guides__section {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.guides__section--other {
+		margin-top: 1rem;
+		padding-top: 2rem;
+		border-top: 1px solid var(--line-soft);
+	}
+
+	.guides__section-head {
+		display: flex;
+		align-items: center;
+		gap: 0.65rem;
+		padding-bottom: 0.65rem;
+		border-bottom: 1px solid var(--line-soft);
+	}
+
+	.guides__section-head h2 {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: 1.25rem;
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		color: var(--ink);
+	}
+
+	.guides__count {
+		display: inline-flex;
+		align-items: center;
+		min-height: 1.5rem;
+		padding: 0 0.5rem;
+		border-radius: 999px;
+		background: color-mix(in srgb, #1b4d3e 35%, var(--bg-elevated));
+		color: #f1c40f;
+		font-size: 0.72rem;
+		font-weight: 700;
+	}
+
+	.guides__grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.guides__card a {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		border: 1px solid var(--line);
+		border-radius: var(--radius-md);
+		overflow: hidden;
+		background: var(--bg-panel);
+		text-decoration: none;
+		color: inherit;
+		transition: border-color 0.2s ease, transform 0.2s ease;
+	}
+
+	.guides__card a:hover {
+		border-color: color-mix(in srgb, #ff8c00 35%, var(--line));
+		transform: translateY(-2px);
+	}
+
+	.guides__card img {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+	}
+
+	.guides__card-body {
+		display: grid;
+		gap: 0.4rem;
+		padding: 0.9rem 1rem 1rem;
+		flex: 1;
+	}
+
+	.guides__card h3 {
+		margin: 0;
+		font-size: 1rem;
+		line-height: 1.3;
+	}
+
+	.guides__card p {
+		margin: 0;
+		color: var(--ink-muted);
+		font-size: 0.86rem;
+		line-height: 1.5;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
+		overflow: hidden;
+	}
+
+	.guides__cat {
+		display: inline-block;
+		color: #f1c40f;
+		font-size: 0.68rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+	}
+
+	@media (max-width: 960px) {
+		.guides__grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 600px) {
+		.guides__grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

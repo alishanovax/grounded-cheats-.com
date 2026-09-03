@@ -1,16 +1,16 @@
 import { siteConfig } from './site';
-import { tarkovImages } from './tarkov';
+import { groundedImages } from './grounded';
 import { pageIds, type PageId } from './i18n/routing';
 import { pageSitemapImageLabels } from './brand-sitemap';
 
 /** Rotating product screenshots for FAQ / review detail URLs. */
 export const crawlPhotoPool = [
-	tarkovImages.espWallhack,
-	tarkovImages.aimbotCombat,
-	tarkovImages.aimbotSkeleton,
-	tarkovImages.playerEsp,
-	tarkovImages.cheatsCombat,
-	'/images/tarkov-cheats-esp.webp',
+	groundedImages.espWallhack,
+	groundedImages.aimbotCombat,
+	groundedImages.aimbotSkeleton,
+	groundedImages.playerEsp,
+	groundedImages.cheatsCombat,
+	'/images/grounded-cheats-esp.webp',
 ] as const;
 
 /**
@@ -18,31 +18,31 @@ export const crawlPhotoPool = [
  * Prefer compressed WebP screenshots so Google can fetch them quickly.
  */
 export const pageImageSrcById: Record<PageId, string> = {
-	home: '/images/tarkov-cheats-hero-1024w.webp',
-	'tarkov-esp': tarkovImages.playerEsp,
-	'tarkov-aimbot': tarkovImages.aimbotCombat,
-	features: tarkovImages.aimbotSkeleton,
-	pricing: tarkovImages.cheatsCombat,
-	setup: tarkovImages.playerEsp,
-	updates: '/images/tarkov-cheats-hero-1024w.webp',
-	faq: tarkovImages.aimbotSkeleton,
-	support: tarkovImages.cheatsCombat,
-	undetected: tarkovImages.espWallhack,
-	wallhack: tarkovImages.espWallhack,
-	radar: tarkovImages.playerEsp,
-	battleye: tarkovImages.aimbotCombat,
-	'cheats-2026': '/images/tarkov-cheats-hero-1024w.webp',
-	hacks: tarkovImages.cheatsCombat,
-	'cheat-download': tarkovImages.cheatsCombat,
-	'mod-menu': tarkovImages.playerEsp,
-	'soft-aim': tarkovImages.aimbotSkeleton,
-	'best-cheats': '/images/tarkov-cheats-hero-1024w.webp',
-	'aimbot-hack': tarkovImages.aimbotSkeleton,
-	'esp-hack': tarkovImages.espWallhack,
-	'unlock-all': tarkovImages.playerEsp,
-	privacy: tarkovImages.aimbotCombat,
-	refund: tarkovImages.cheatsCombat,
-	terms: tarkovImages.aimbotSkeleton,
+	home: '/images/grounded-cheats-hero-1024w.webp',
+	'grounded-god-mode': groundedImages.playerEsp,
+	'grounded-trainer': groundedImages.aimbotCombat,
+	features: groundedImages.aimbotSkeleton,
+	pricing: groundedImages.cheatsCombat,
+	setup: groundedImages.playerEsp,
+	updates: '/images/grounded-cheats-hero-1024w.webp',
+	faq: groundedImages.aimbotSkeleton,
+	support: groundedImages.cheatsCombat,
+	undetected: groundedImages.espWallhack,
+	wallhack: groundedImages.espWallhack,
+	radar: groundedImages.playerEsp,
+	'anti-cheat': groundedImages.aimbotCombat,
+	'cheats-2026': '/images/grounded-cheats-hero-1024w.webp',
+	hacks: groundedImages.cheatsCombat,
+	'cheat-download': groundedImages.cheatsCombat,
+	'mod-menu': groundedImages.playerEsp,
+	'soft-aim': groundedImages.aimbotSkeleton,
+	'best-cheats': '/images/grounded-cheats-hero-1024w.webp',
+	'aimbot-hack': groundedImages.aimbotSkeleton,
+	'esp-hack': groundedImages.espWallhack,
+	'unlock-all': groundedImages.playerEsp,
+	privacy: groundedImages.aimbotCombat,
+	refund: groundedImages.cheatsCombat,
+	terms: groundedImages.aimbotSkeleton,
 };
 
 for (const pageId of pageIds) {

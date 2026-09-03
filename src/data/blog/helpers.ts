@@ -1,5 +1,5 @@
 import { siteConfig } from '../site';
-import { tarkovImages } from '../tarkov';
+import { blogImagePaths } from './blog-images';
 import { blogSitemapImageMeta } from '../brand-sitemap';
 import {
 	defaultLocale,
@@ -11,21 +11,9 @@ import { resolvePageContextFromPath } from '../i18n/routing';
 import type { BlogImageKey, BlogPostDefinition, BlogTranslation, ResolvedBlogPost } from './types';
 import { blogPosts as rawBlogPosts } from './posts.generated';
 
-const imageMap: Record<BlogImageKey, string> = {
-	hero: tarkovImages.espWallhack,
-	espWallhack: tarkovImages.espWallhack,
-	aimbotCombat: tarkovImages.aimbotCombat,
-	aimbotSkeleton: tarkovImages.aimbotSkeleton,
-	squadFight: tarkovImages.aimbotCombat,
-	headerArt: tarkovImages.playerEsp,
-	cheatsPackage: tarkovImages.espWallhack,
-	playerEsp: tarkovImages.playerEsp,
-	rebootFight: tarkovImages.aimbotCombat,
-	battleRoyaleCombat: tarkovImages.cheatsCombat,
-	battleRoyaleIslandMap: tarkovImages.espWallhack,
-};
+const imageMap = blogImagePaths;
 
-const FALLBACK_BLOG_IMAGE = tarkovImages.espWallhack;
+const FALLBACK_BLOG_IMAGE = blogImagePaths.blog12;
 
 function expandTranslations(
 	translations: Partial<Record<LocaleCode, BlogTranslation>> & { en: BlogTranslation },
@@ -116,6 +104,42 @@ export function getFeaturedPosts(locale: LocaleCode, limit = 3): ResolvedBlogPos
 	return (featured.length >= limit ? featured : all).slice(0, limit);
 }
 
+/** Posts for the index grid — excludes featured hero cards so nothing appears twice. */
+export function getListPostsForLocale(locale: LocaleCode, featuredLimit = 3): ResolvedBlogPost[] {
+	const featuredIds = new Set(getFeaturedPosts(locale, featuredLimit).map((p) => p.id));
+	return getAllPostsForLocale(locale).filter((p) => !featuredIds.has(p.id));
+}
+
+/** Group list posts by category in a stable order. */
+export function getPostsGroupedByCategory(locale: LocaleCode): { category: string; posts: ResolvedBlogPost[] }[] {
+	const order = ['Trainer', 'Cheats', 'God Mode', 'Crafting', 'Tips', 'Commands', 'Guides', 'Setup', 'Troubleshooting'];
+	const list = getListPostsForLocale(locale);
+	const groups = new Map<string, ResolvedBlogPost[]>();
+	for (const post of list) {
+		const arr = groups.get(post.category) ?? [];
+		arr.push(post);
+		groups.set(post.category, arr);
+	}
+	const sorted = [...groups.entries()].sort(([a], [b]) => {
+		const ai = order.indexOf(a);
+		const bi = order.indexOf(b);
+		if (ai === -1 && bi === -1) return a.localeCompare(b);
+		if (ai === -1) return 1;
+		if (bi === -1) return -1;
+		return ai - bi;
+	});
+	return sorted.map(([category, posts]) => ({ category, posts }));
+}
+
+export function getRelatedPosts(locale: LocaleCode, post: ResolvedBlogPost, limit = 3): ResolvedBlogPost[] {
+	const sameCategory = getAllPostsForLocale(locale).filter(
+		(p) => p.id !== post.id && p.category === post.category,
+	);
+	if (sameCategory.length >= limit) return sameCategory.slice(0, limit);
+	const rest = getAllPostsForLocale(locale).filter((p) => p.id !== post.id && !sameCategory.includes(p));
+	return [...sameCategory, ...rest].slice(0, limit);
+}
+
 export function getPostBySlug(locale: LocaleCode, slug: string): ResolvedBlogPost | undefined {
 	const post = blogPosts.find((p) => p.translations[locale]?.slug === slug);
 	return post ? resolvePost(post, locale) : undefined;
@@ -186,7 +210,7 @@ export function getBlogSitemapEntriesForLocale(locale: LocaleCode) {
 	for (const post of blogPosts) {
 		const t = post.translations[locale];
 		const imageSrc = getBlogImageSrc(post.imageKey);
-		const isProductPost = /Tarkov Cheats|Aimbot|ESP|Undetected|Comparisons/i.test(post.category);
+		const isProductPost = /Grounded Cheats|Trainer|ESP|Undetected|Comparisons/i.test(post.category);
 		entries.push({
 			path: getBlogPostPath(locale, t.slug),
 			lastmod: post.updated,

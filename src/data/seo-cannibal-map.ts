@@ -8,12 +8,12 @@ export const cannibalRedirectTargets = {
 	undetected: 'hacks',
 	'mod-menu': 'hacks',
 	'unlock-all': 'hacks',
-	'aimbot-hack': 'tarkov-aimbot',
-	'soft-aim': 'tarkov-aimbot',
-	'esp-hack': 'tarkov-esp',
-	wallhack: 'tarkov-esp',
+	'aimbot-hack': 'grounded-trainer',
+	'soft-aim': 'grounded-trainer',
+	'esp-hack': 'grounded-god-mode',
+	wallhack: 'grounded-god-mode',
 	'cheat-download': 'setup',
-	battleye: 'updates',
+	'anti-cheat': 'updates',
 } as const;
 
 export type CannibalPageId = keyof typeof cannibalRedirectTargets;

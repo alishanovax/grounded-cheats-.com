@@ -35,10 +35,10 @@ type Field = {
 const seoDefaults = {
 	homeTitle: '{brand} | Undetected {primaryKeyword}',
 	homeDescription:
-		'{primaryKeyword} for Windows PC -- ESP, aimbot, and radar with {antiCheat} maintenance. Compare plans and buy.',
+		'{primaryKeyword} for Windows PC -- ESP, trainer, and radar with {antiCheat} maintenance. Compare plans and buy.',
 	featuresTitle: '{game} Features | {brand}',
 	featuresDescription:
-		'Everything in one {game} license for Windows PC -- ESP, aimbot, radar, and patch updates.',
+		'Everything in one {game} license for Windows PC -- ESP, trainer, radar, and patch updates.',
 	storeTitle: '{game} Store | {brand}',
 	storeDescription: 'Monthly and lifetime {game} plans. Same features. Instant delivery after payment.',
 	statusTitle: '{game} Status | {brand}',
@@ -46,7 +46,7 @@ const seoDefaults = {
 		'Live status for {brand} after {game} or {antiCheat} patches. Check before you queue.',
 	previewTitle: '{game} Preview | {brand}',
 	previewDescription:
-		'Quick preview of {brand} -- ESP, aimbot, radar, and updates after {game} patches.',
+		'Quick preview of {brand} -- ESP, trainer, radar, and updates after {game} patches.',
 	setupTitle: '{game} Setup | {brand}',
 	setupDescription: 'Install and launch {brand} on Windows PC. Short setup steps after you buy.',
 	supportTitle: '{game} Support | {brand}',
@@ -55,15 +55,15 @@ const seoDefaults = {
 	faqDescription: 'Short answers about {brand} — delivery, setup, updates, and refunds.',
 	reviewsTitle: '{brand} Reviews | Buyer Feedback',
 	reviewsDescription:
-		'Real buyer reviews for {brand} — ESP, soft aim, radar, and patch updates on Windows PC.',
+		'Real buyer reviews for {brand} — ESP, trainer controls, radar, and patch updates on Windows PC.',
 	blogTitle: '{game} Intel | {brand}',
-	blogDescription: 'Guides and notes for {game} — meta tips, ESP, aimbot, and {antiCheat} updates.',
+	blogDescription: 'Guides and notes for {game} — meta tips, ESP, trainer, and {antiCheat} updates.',
 };
 
 const copyDefaults = {
-	tagline: 'Undetected {primaryKeyword} -- ESP, aimbot, and radar for PC',
+	tagline: 'Undetected {primaryKeyword} -- ESP, trainer, and radar for PC',
 	summary:
-		'{brand} is an undetected {game} cheat package for Windows PC. Includes ESP, soft aim, and radar, with {antiCheat} maintenance after patches.',
+		'{brand} is an undetected {game} cheat package for Windows PC. Includes ESP, trainer controls, and radar, with {antiCheat} maintenance after patches.',
 	heroLede: 'Hacks and cheats available -- 0% detection.',
 	blogLabel: '{game} Intel',
 	ctaBuy: 'Buy now',
@@ -71,14 +71,14 @@ const copyDefaults = {
 	featuresIntro: 'Everything included in one license for {game} on Windows PC.',
 	storeIntro: 'Pick a plan. Same features on both. Instant delivery after payment.',
 	statusIntro: 'Check here after a {game} or {antiCheat} patch before you play.',
-	previewIntro: 'A quick look at {brand} — ESP, aimbot, radar, and updates after patches.',
+	previewIntro: 'A quick look at {brand} — ESP, trainer, radar, and updates after patches.',
 	setupIntro: 'Install {brand} on Windows PC after you buy. Follow these short steps.',
 	supportIntro: 'Need help with {brand}? Email {email} with your order ID.',
 	faqIntro: 'Short answers about delivery, setup, updates, and refunds.',
-	reviewsIntro: 'Real feedback from {brand} buyers — ESP, soft aim, radar, and support.',
-	chipEsp: 'ESP / wallhack',
-	chipAim: 'Soft aim',
-	chipRadar: '2D radar',
+	reviewsIntro: 'Real feedback from {brand} buyers — ESP, trainer controls, radar, and support.',
+	chipEsp: 'ESP / god mode',
+	chipAim: 'Trainer controls',
+	chipRadar: 'item spawner',
 	chipUpdates: 'Patch updates',
 	navPreview: 'Preview',
 	navFeatures: 'Features',
@@ -176,7 +176,7 @@ const product: Field[] = [
 	{
 		name: 'game',
 		label: 'Game',
-		tip: 'What: The game this template instance is for. | Why: Fills {game} in titles, FAQs, Status copy, and SEO titles like "Tarkov Features | Brand". | Example: Fortnite, Apex Legends, Marathon',
+		tip: 'What: The game this template instance is for. | Why: Fills {game} in titles, FAQs, Status copy, and SEO titles like "Grounded Features | Brand". | Example: Fortnite, Apex Legends, Marathon',
 		value: brand.game,
 		required: true,
 		maxlength: 80,
@@ -184,7 +184,7 @@ const product: Field[] = [
 	{
 		name: 'antiCheat',
 		label: 'Anti-cheat',
-		tip: 'What: The game anti-cheat system name. | Why: Status / FAQ text mentions rebuilds after this anti-cheat patches. Use {antiCheat} token. | Example: Easy Anti-Cheat, BattlEye, BattlEye',
+		tip: 'What: The game anti-cheat system name. | Why: Status / FAQ text mentions rebuilds after this anti-cheat patches. Use {antiCheat} token. | Example: Easy Anti-Cheat, Easy Anti-Cheat, Easy Anti-Cheat',
 		value: brand.antiCheat,
 		required: true,
 		maxlength: 80,
@@ -259,7 +259,7 @@ const seoFields: Field[] = [
 	{
 		name: 'homeDescription',
 		label: 'Home description',
-		tip: 'What: Meta description for the homepage. | Why: Snippet under the blue link in Google. Aim for 140-160 characters. | Example: marathon hacks for Windows PC -- ESP, aimbot, and radar...',
+		tip: 'What: Meta description for the homepage. | Why: Snippet under the blue link in Google. Aim for 140-160 characters. | Example: marathon hacks for Windows PC -- ESP, trainer, and radar...',
 		value: seo.homeDescription,
 		textarea: true,
 		rows: 2,
@@ -319,7 +319,7 @@ const seoFields: Field[] = [
 	{
 		name: 'statusDescription',
 		label: 'Status description',
-		tip: 'What: Meta description for Status. | Why: Mention {antiCheat} and patch checks. | Example: Live status for Marathon Hacks after Marathon or BattlEye patches...',
+		tip: 'What: Meta description for Status. | Why: Mention {antiCheat} and patch checks. | Example: Live status for Marathon Hacks after Marathon or Easy Anti-Cheat patches...',
 		value: seo.statusDescription,
 		textarea: true,
 		rows: 2,
@@ -339,7 +339,7 @@ const seoFields: Field[] = [
 	{
 		name: 'previewDescription',
 		label: 'Preview description',
-		tip: 'What: Meta description for Preview. | Why: Short product overview for search. | Example: Quick preview of Marathon Hacks -- ESP, aimbot, radar...',
+		tip: 'What: Meta description for Preview. | Why: Short product overview for search. | Example: Quick preview of Marathon Hacks -- ESP, trainer, radar...',
 		value: seo.previewDescription,
 		textarea: true,
 		rows: 2,
@@ -466,7 +466,7 @@ const copyFields: Field[] = [
 	{
 		name: 'tagline',
 		label: 'Tagline',
-		tip: 'What: Short marketing line under the brand. | Why: Used in schema and compact promos. Tokens allowed. | Example: Undetected marathon hacks -- ESP, aimbot, and radar for PC',
+		tip: 'What: Short marketing line under the brand. | Why: Used in schema and compact promos. Tokens allowed. | Example: Undetected marathon hacks -- ESP, trainer, and radar for PC',
 		value: copy.tagline,
 		required: true,
 		maxlength: 160,
@@ -495,7 +495,7 @@ const copyFields: Field[] = [
 	{
 		name: 'blogLabel',
 		label: 'Blog / intel label',
-		tip: 'What: Nav label for blog or intel section. | Why: Shown in navigation when blog is enabled. | Example: Marathon Intel, Tarkov Intel',
+		tip: 'What: Nav label for blog or intel section. | Why: Shown in navigation when blog is enabled. | Example: Marathon Intel, Grounded Guides',
 		value: copy.blogLabel,
 		required: true,
 		maxlength: 80,
@@ -598,21 +598,21 @@ const copyFields: Field[] = [
 	{
 		name: 'chipEsp',
 		label: 'Hero chip: ESP',
-		tip: 'What: Homepage feature chip. | Why: Hero bullets. | Example: ESP / wallhack',
+		tip: 'What: Homepage feature chip. | Why: Hero bullets. | Example: ESP / god mode',
 		value: copy.chipEsp,
 		maxlength: 40,
 	},
 	{
 		name: 'chipAim',
 		label: 'Hero chip: Aim',
-		tip: 'What: Homepage feature chip. | Why: Hero bullets. | Example: Soft aim',
+		tip: 'What: Homepage feature chip. | Why: Hero bullets. | Example: Trainer controls',
 		value: copy.chipAim,
 		maxlength: 40,
 	},
 	{
 		name: 'chipRadar',
 		label: 'Hero chip: Radar',
-		tip: 'What: Homepage feature chip. | Why: Hero bullets. | Example: 2D radar',
+		tip: 'What: Homepage feature chip. | Why: Hero bullets. | Example: item spawner',
 		value: copy.chipRadar,
 		maxlength: 40,
 	},
@@ -769,13 +769,13 @@ const seoAuditRows = [
 	{ page: 'Features', path: '/features/', fields: 'featuresTitle / Description + intro', status: 'Live · permanent' },
 	{ page: 'Store', path: '/pricing/', fields: 'storeTitle / Description + intro', status: 'Live · permanent' },
 	{ page: 'Status', path: '/updates/', fields: 'statusTitle / Description + intro', status: 'Live · permanent' },
-	{ page: 'Preview', path: '/tarkov-cheats/', fields: 'previewTitle / Description + intro', status: 'Live · permanent' },
+	{ page: 'Preview', path: '/grounded-cheats/', fields: 'previewTitle / Description + intro', status: 'Live · permanent' },
 	{ page: 'Setup', path: '/setup/', fields: 'setupTitle / Description + intro', status: 'Live · permanent' },
 	{ page: 'Support', path: '/support/', fields: 'supportTitle / Description + intro', status: 'Live · permanent' },
 	{ page: 'FAQ index', path: '/faq/', fields: 'faqTitle / Description + intro', status: 'Live · permanent' },
 	{ page: 'Reviews index', path: '/reviews/', fields: 'reviewsTitle / Description + intro', status: 'Live · permanent' },
 	{ page: 'Blog index', path: '/blog/', fields: 'blogTitle / blogDescription', status: 'Live · EN permanent' },
-	{ page: 'Keyword landings', path: '/tarkov-esp/ …', fields: 'content.generated.ts', status: 'Manual file' },
+	{ page: 'Keyword landings', path: '/grounded-god-mode/ …', fields: 'content.generated.ts', status: 'Manual file' },
 	{ page: 'FAQ answers', path: '/faq/[slug]/', fields: 'site.ts faqs', status: 'Manual file' },
 	{ page: 'Review posts', path: '/reviews/[slug]/', fields: 'site.ts reviews', status: 'Manual file' },
 ] as const;
@@ -1507,10 +1507,10 @@ const sections = [
 				const seoTemplates = {
 					homeTitle: '{brand} | Undetected {primaryKeyword}',
 					homeDescription:
-						'{primaryKeyword} for Windows PC -- ESP, aimbot, and radar with {antiCheat} maintenance. Compare plans and buy.',
+						'{primaryKeyword} for Windows PC -- ESP, trainer, and radar with {antiCheat} maintenance. Compare plans and buy.',
 					featuresTitle: '{game} Features | {brand}',
 					featuresDescription:
-						'Everything in one {game} license for Windows PC -- ESP, aimbot, radar, and patch updates.',
+						'Everything in one {game} license for Windows PC -- ESP, trainer, radar, and patch updates.',
 					storeTitle: '{game} Store | {brand}',
 					storeDescription: 'Monthly and lifetime {game} plans. Same features. Instant delivery after payment.',
 					statusTitle: '{game} Status | {brand}',
@@ -1518,7 +1518,7 @@ const sections = [
 						'Live status for {brand} after {game} or {antiCheat} patches. Check before you queue.',
 					previewTitle: '{game} Preview | {brand}',
 					previewDescription:
-						'Quick preview of {brand} -- ESP, aimbot, radar, and updates after {game} patches.',
+						'Quick preview of {brand} -- ESP, trainer, radar, and updates after {game} patches.',
 					setupTitle: '{game} Setup | {brand}',
 					setupDescription: 'Install and launch {brand} on Windows PC. Short setup steps after you buy.',
 					supportTitle: '{game} Support | {brand}',
@@ -1527,15 +1527,15 @@ const sections = [
 					faqDescription: 'Short answers about {brand} — delivery, setup, updates, and refunds.',
 					reviewsTitle: '{brand} Reviews | Buyer Feedback',
 					reviewsDescription:
-						'Real buyer reviews for {brand} — ESP, soft aim, radar, and patch updates on Windows PC.',
+						'Real buyer reviews for {brand} — ESP, trainer controls, radar, and patch updates on Windows PC.',
 					blogTitle: '{game} Intel | {brand}',
-					blogDescription: 'Guides and notes for {game} — meta tips, ESP, aimbot, and {antiCheat} updates.',
+					blogDescription: 'Guides and notes for {game} — meta tips, ESP, trainer, and {antiCheat} updates.',
 				};
 
 				const copyTemplates = {
-					tagline: 'Undetected {primaryKeyword} -- ESP, aimbot, and radar for PC',
+					tagline: 'Undetected {primaryKeyword} -- ESP, trainer, and radar for PC',
 					summary:
-						'{brand} is an undetected {game} cheat package for Windows PC. Includes ESP, soft aim, and radar, with {antiCheat} maintenance after patches.',
+						'{brand} is an undetected {game} cheat package for Windows PC. Includes ESP, trainer controls, and radar, with {antiCheat} maintenance after patches.',
 					heroLede: 'Hacks and cheats available -- 0% detection.',
 					blogLabel: '{game} Intel',
 					ctaBuy: 'Buy now',
@@ -1543,11 +1543,11 @@ const sections = [
 					featuresIntro: 'Everything included in one license for {game} on Windows PC.',
 					storeIntro: 'Pick a plan. Same features on both. Instant delivery after payment.',
 					statusIntro: 'Check here after a {game} or {antiCheat} patch before you play.',
-					previewIntro: 'A quick look at {brand} — ESP, aimbot, radar, and updates after patches.',
+					previewIntro: 'A quick look at {brand} — ESP, trainer, radar, and updates after patches.',
 					setupIntro: 'Install {brand} on Windows PC after you buy. Follow these short steps.',
 					supportIntro: 'Need help with {brand}? Email {email} with your order ID.',
 					faqIntro: 'Short answers about delivery, setup, updates, and refunds.',
-					reviewsIntro: 'Real feedback from {brand} buyers — ESP, soft aim, radar, and support.',
+					reviewsIntro: 'Real feedback from {brand} buyers — ESP, trainer controls, radar, and support.',
 				};
 
 				function show(msg, ok) {
@@ -1753,7 +1753,7 @@ const sections = [
 							features: '/features/',
 							store: '/pricing/',
 							status: '/updates/',
-							preview: '/tarkov-cheats/',
+							preview: '/grounded-cheats/',
 							setup: '/setup/',
 							support: '/support/',
 							faq: '/faq/',
@@ -2182,17 +2182,17 @@ const sections = [
 					});
 					const titleTpls = [
 						'{primaryKeyword} ESP',
-						'{primaryKeyword} wallhack',
-						'{primaryKeyword} aimbot',
-						'{primaryKeyword} aimbot view',
+						'{primaryKeyword} god mode',
+						'{primaryKeyword} trainer',
+						'{primaryKeyword} trainer view',
 						'{primaryKeyword} radar',
 						'{primaryKeyword} in a fight',
 					];
 					const capTpls = [
 						'See players with {primaryKeyword}',
 						'See through walls with {primaryKeyword}',
-						'Aimbot in {primaryKeyword}',
-						'Aimbot bone view in {primaryKeyword}',
+						'Trainer in {primaryKeyword}',
+						'Trainer bone view in {primaryKeyword}',
 						'Radar map in {primaryKeyword}',
 						'Fight view with {primaryKeyword}',
 					];

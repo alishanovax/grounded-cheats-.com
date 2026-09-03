@@ -1,5 +1,5 @@
 ---
-import { tarkovImages } from '../data/tarkov';
+import { groundedImages } from '../data/grounded';
 import { getUi } from '../data/i18n';
 import { defaultLocale, type LocaleCode } from '../data/i18n/locales';
 import { productInfo, siteConfig } from '../data/site';
@@ -17,15 +17,15 @@ const t = getT(locale);
 const { name = ui.product.title } = Astro.props;
 
 const productAlts = [
-	ui.images.espWallhack,
-	ui.images.aimbotCombat,
+	ui.images.espGod mode,
+	ui.images.trainerCombat,
 	ui.images.headerArt,
 	ui.images.playerEsp,
 	ui.images.squadFight,
 	ui.images.cheatsPackage,
 ] as const;
 
-const mainImage = tarkovImages.product[0];
+const mainImage = groundedImages.product[0];
 const mainAlt = productAlts[0] ?? mainImage.alt;
 const monthlyPlan = productInfo.plans.find((plan) => plan.id === 'monthly') ?? productInfo.plans[0];
 ---

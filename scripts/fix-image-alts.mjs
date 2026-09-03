@@ -4,8 +4,8 @@ import { DESCRIPTIVE_IMAGE_ALTS, PAGE_IMAGE_ALTS } from './i18n-data/image-alts.
 
 const imagesBlock = `images: {
 \t\thero: ${JSON.stringify(DESCRIPTIVE_IMAGE_ALTS.hero)},
-\t\tespWallhack: ${JSON.stringify(DESCRIPTIVE_IMAGE_ALTS.espWallhack)},
-\t\taimbotCombat: ${JSON.stringify(DESCRIPTIVE_IMAGE_ALTS.aimbotCombat)},
+\t\tespGod mode: ${JSON.stringify(DESCRIPTIVE_IMAGE_ALTS.espGod mode)},
+\t\ttrainerCombat: ${JSON.stringify(DESCRIPTIVE_IMAGE_ALTS.trainerCombat)},
 \t\tsquadFight: ${JSON.stringify(DESCRIPTIVE_IMAGE_ALTS.squadFight)},
 \t\tplayerEsp: ${JSON.stringify(DESCRIPTIVE_IMAGE_ALTS.playerEsp)},
 \t\theaderArt: ${JSON.stringify(DESCRIPTIVE_IMAGE_ALTS.headerArt)},
@@ -16,7 +16,7 @@ const imagesBlock = `images: {
 \t}`;
 
 const oldImagesRe =
-	/images:\s*\{\s*hero:\s*'[^']*',\s*espWallhack:\s*'[^']*',\s*aimbotCombat:\s*'[^']*',\s*squadFight:\s*'[^']*',\s*playerEsp:\s*'[^']*',\s*headerArt:\s*'[^']*',\s*cheatsPackage:\s*'[^']*',\s*rebootFight:\s*'[^']*',\s*battleRoyale:\s*'[^']*',\s*battleRoyaleIsland:\s*'[^']*'\s*\}/g;
+	/images:\s*\{\s*hero:\s*'[^']*',\s*espGod mode:\s*'[^']*',\s*trainerCombat:\s*'[^']*',\s*squadFight:\s*'[^']*',\s*playerEsp:\s*'[^']*',\s*headerArt:\s*'[^']*',\s*cheatsPackage:\s*'[^']*',\s*rebootFight:\s*'[^']*',\s*battleRoyale:\s*'[^']*',\s*battleRoyaleIsland:\s*'[^']*'\s*\}/g;
 
 for (const f of ['scripts/i18n-data/ui-strings-part1.mjs', 'scripts/i18n-data/ui-strings-part2.mjs']) {
 	let s = fs.readFileSync(f, 'utf8');
@@ -40,7 +40,7 @@ for (const f of ['public/locales/en/translation.json', 'public/locales/es/transl
 	const j = JSON.parse(fs.readFileSync(f, 'utf8'));
 	j.images = { ...DESCRIPTIVE_IMAGE_ALTS };
 	if (j.hero) {
-		j.hero.imageAlt = '{{brand}} — Escape from Tarkov ESP and aimbot overlay';
+		j.hero.imageAlt = '{{brand}} — Grounded ESP and trainer overlay';
 	}
 	fs.writeFileSync(f, `${JSON.stringify(j, null, 2)}\n`);
 	console.log('updated', f);

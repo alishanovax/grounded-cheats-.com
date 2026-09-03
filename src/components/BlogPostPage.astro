@@ -5,9 +5,9 @@ import SiteFooter from './SiteFooter.astro';
 import { blogUi, defaultLocale, type LocaleCode } from '../data/i18n/locales';
 import {
 	absoluteBlogUrl,
-	getAllPostsForLocale,
 	getBlogBasePath,
 	getBlogPostHreflangAlternates,
+	getRelatedPosts,
 } from '../data/blog/helpers';
 import type { ResolvedBlogPost } from '../data/blog/types';
 import { blogLabel, siteConfig } from '../data/site';
@@ -23,9 +23,7 @@ const ui = blogUi[locale];
 const t = post.translation;
 const homeHref = getLocalizedPath('home', locale);
 const blogHref = getBlogBasePath(defaultLocale);
-const related = getAllPostsForLocale(defaultLocale)
-	.filter((p) => p.id !== post.id)
-	.slice(0, 3);
+const related = getRelatedPosts(defaultLocale, post, 3);
 
 const articleUrl = absoluteBlogUrl(defaultLocale, post.translations[defaultLocale]?.slug ?? t.slug);
 const hreflangAlternates = getBlogPostHreflangAlternates(post, locale);
@@ -136,10 +134,13 @@ function pageTitle(headline: string): string {
 			related.length > 0 && (
 				<section class="post__related" aria-label={ui.relatedPosts}>
 					<h2>{ui.relatedPosts}</h2>
-					<ul>
+					<ul class="post__related-grid">
 						{related.map((item) => (
 							<li>
-								<a href={item.canonicalPath}>{item.translation.title}</a>
+								<a href={item.canonicalPath}>
+									<img src={item.imageSrc} alt={item.translation.imageAlt} width="320" height="180" loading="lazy" decoding="async" />
+									<span>{item.translation.title}</span>
+								</a>
 							</li>
 						))}
 					</ul>
@@ -155,6 +156,9 @@ function pageTitle(headline: string): string {
 <style>
 	.post {
 		padding: 2.5rem 0 4rem;
+		background:
+			radial-gradient(ellipse 70% 50% at 100% 0%, color-mix(in srgb, #ff8c00 8%, transparent), transparent 50%),
+			var(--bg);
 	}
 
 	.post__inner {
@@ -163,7 +167,7 @@ function pageTitle(headline: string): string {
 	}
 	.post__cat {
 		margin: 0 0 0.5rem;
-		color: var(--magenta-soft);
+		color: #f1c40f;
 		font-size: 0.75rem;
 		font-weight: 700;
 		letter-spacing: 0.08em;
@@ -187,7 +191,8 @@ function pageTitle(headline: string): string {
 		aspect-ratio: 16 / 9;
 		object-fit: cover;
 		margin: 1.5rem 0 2rem;
-		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: var(--radius-md);
+		border: 1px solid color-mix(in srgb, #1b4d3e 40%, var(--line));
 	}
 	.post__section {
 		margin-bottom: 1.75rem;
@@ -219,26 +224,56 @@ function pageTitle(headline: string): string {
 	.post__related {
 		margin-top: 3rem;
 		padding-top: 1.5rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.1);
+		border-top: 1px solid var(--line-soft);
 	}
+
 	.post__related h2 {
-		margin: 0 0 0.75rem;
+		margin: 0 0 1rem;
 		font-size: 1.15rem;
 	}
-	.post__related ul {
+
+	.post__related-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.85rem;
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
-	.post__related li {
-		margin-bottom: 0.55rem;
-	}
-	.post__related a {
-		color: var(--magenta-soft);
+
+	.post__related-grid a {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		border: 1px solid var(--line);
+		border-radius: var(--radius-md);
+		overflow: hidden;
+		background: var(--bg-panel);
 		text-decoration: none;
+		color: var(--ink);
 		font-weight: 600;
+		font-size: 0.88rem;
+		line-height: 1.35;
+		transition: border-color 0.2s ease;
 	}
-	.post__related a:hover {
-		text-decoration: underline;
+
+	.post__related-grid a:hover {
+		border-color: color-mix(in srgb, #ff8c00 35%, var(--line));
+	}
+
+	.post__related-grid img {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+	}
+
+	.post__related-grid span {
+		padding: 0.75rem 0.85rem 0.9rem;
+	}
+
+	@media (max-width: 760px) {
+		.post__related-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

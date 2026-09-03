@@ -17,9 +17,9 @@ function HomeSeoInner({ faqs }: Props) {
 			hintKey: 'homeSeo.catFeaturesHint',
 			links: [
 				{ href: '/features/', labelKey: 'homeSeo.linkAllFeatures' },
-				{ href: '/tarkov-esp/', labelKey: 'homeSeo.linkEsp' },
-				{ href: '/tarkov-aimbot/', labelKey: 'homeSeo.linkAimbot' },
-				{ href: '/tarkov-radar-hack/', labelKey: 'homeSeo.linkRadar' },
+				{ href: '/grounded-god-mode/', labelKey: 'homeSeo.linkEsp' },
+				{ href: '/grounded-trainer/', labelKey: 'homeSeo.linkTrainer' },
+				{ href: '/grounded-free-crafting/', labelKey: 'homeSeo.linkRadar' },
 			],
 		},
 		{
@@ -27,7 +27,7 @@ function HomeSeoInner({ faqs }: Props) {
 			hintKey: 'homeSeo.catStatusHint',
 			links: [
 				{ href: '/updates/', labelKey: 'homeSeo.linkLiveStatus' },
-				{ href: '/tarkov-cheats/', labelKey: 'homeSeo.linkUndetected' },
+				{ href: '/grounded-cheats/', labelKey: 'homeSeo.linkUndetected' },
 				{ href: '/setup/', labelKey: 'homeSeo.linkSetup' },
 				{ href: '/faq/', labelKey: 'homeSeo.linkFaq' },
 			],
@@ -38,7 +38,7 @@ function HomeSeoInner({ faqs }: Props) {
 			links: [
 				{ href: '/pricing/', labelKey: 'homeSeo.linkPlans' },
 				{ href: '/reviews/', labelKey: 'homeSeo.linkReviews' },
-				{ href: '/tarkov-cheats/', labelKey: 'homeSeo.linkTarkovCheats' },
+				{ href: '/grounded-cheats/', labelKey: 'homeSeo.linkGroundedCheats' },
 				{ href: '/features/', labelKey: 'homeSeo.linkAllFeatures' },
 			],
 		},

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const files = ['scripts/i18n-data/pages-en.mjs', 'scripts/generate-blog-posts.mjs'];
+const files = ['scripts/i18n-data/pages-en.mjs', 'scripts/generate-grounded-blog-posts.mjs'];
 const pairs = [
 	["Activision's", "Battlestate Games'"],
 	['Activision\u2019', "Battlestate Games'"],
@@ -10,19 +10,19 @@ const pairs = [
 	['Activision platform', 'Battlestate Games platform'],
 	['Activision outages', 'launcher outages'],
 	['Activision bans', 'Battlestate Games bans'],
-	['Activision security', 'BattlEye security'],
-	['Activision Status', 'Escape from Tarkov Support'],
-	['Activision Tarkov', 'Escape from Tarkov'],
-	['Activision Support', 'Escape from Tarkov Support'],
+	['Activision security', 'Easy Anti-Cheat security'],
+	['Activision Status', 'Grounded Support'],
+	['Activision Grounded', 'Grounded'],
+	['Activision Support', 'Grounded Support'],
 	['Activision', 'Battlestate Games'],
-	['EAC guide', 'BattlEye guide'],
-	['undetected EAC notes', 'undetected BattlEye notes'],
-	['status.epicgames.com', 'www.escapefromtarkov.com/support'],
-	['www.epicgames.com/tarkov', 'www.escapefromtarkov.com'],
-	['www.tarkov.com/competitive', 'www.escapefromtarkov.com'],
-	['https://www.tarkov.com/', 'https://www.escapefromtarkov.com/'],
-	['Tarkov.com', 'Escape from Tarkov'],
-	['Tarkov Competitive', 'Escape from Tarkov'],
+	['EAC guide', 'Easy Anti-Cheat guide'],
+	['undetected EAC notes', 'undetected Easy Anti-Cheat notes'],
+	['status.epicgames.com', 'www.escapefromgrounded.com/support'],
+	['www.epicgames.com/grounded', 'www.escapefromgrounded.com'],
+	['www.grounded.com/competitive', 'www.escapefromgrounded.com'],
+	['https://www.grounded.com/', 'https://www.escapefromgrounded.com/'],
+	['Grounded.com', 'Grounded'],
+	['Grounded Competitive', 'Grounded'],
 ];
 
 for (const f of files) {

@@ -1,11 +1,11 @@
 {
-  "name": "Tarkov Cheats",
-  "short_name": "Tarkov",
-  "description": "Undetected tarkov cheats — ESP, aimbot, and radar for PC",
+  "name": "Grounded Cheats",
+  "short_name": "Grounded",
+  "description": "Undetected grounded cheats — ESP, trainer, and radar for PC",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0811",
-  "theme_color": "#0a0811",
+  "background_color": "#0f1a14",
+  "theme_color": "#0f1a14",
   "icons": [
     {
       "src": "/favicon.png",

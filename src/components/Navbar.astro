@@ -59,6 +59,8 @@ const links = [
 	client:load
 	locale={locale}
 	siteName={siteConfig.name}
+	logoSrc={siteConfig.logo}
+	logoAlt={siteConfig.logoAlt}
 	checkoutUrl={siteConfig.checkoutUrl}
 	currentPath={current}
 	homeHref={getLocalizedPath('home', locale)}
@@ -71,6 +73,11 @@ const links = [
 <style is:global>
 	body.nav-lock {
 		overflow: hidden;
+	}
+
+	.site-header .lang-switcher {
+		position: relative;
+		flex-shrink: 0;
 	}
 
 	.site-header .lang-switcher__toggle {
@@ -94,8 +101,10 @@ const links = [
 			border-color 0.15s ease;
 	}
 
-	.site-header .lang-switcher__toggle::-webkit-details-marker {
+	.site-header .lang-switcher__toggle::-webkit-details-marker,
+	.site-header .lang-switcher__toggle::marker {
 		display: none;
+		content: '';
 	}
 
 	.site-header .lang-switcher__toggle:hover {
@@ -111,10 +120,13 @@ const links = [
 	}
 
 	.site-header .lang-switcher__panel {
+		position: absolute;
 		right: 0;
 		left: auto;
 		top: calc(100% + 0.45rem);
 		min-width: 15rem;
+		width: min(16rem, calc(100vw - 2rem));
+		padding: 0.5rem;
 		max-height: min(70vh, 22rem);
 		overflow: auto;
 		background: var(--bg-elevated);
@@ -124,13 +136,51 @@ const links = [
 		z-index: 120;
 	}
 
+	.site-header .lang-switcher__note {
+		margin: 0 0 0.5rem;
+		padding: 0.45rem 0.55rem;
+		border-radius: 0.55rem;
+		background: color-mix(in srgb, var(--bg-panel) 80%, transparent);
+		color: var(--ink-muted);
+		font-size: 0.72rem;
+		line-height: 1.4;
+	}
+
+	.site-header .lang-switcher__list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: grid;
+		gap: 0.25rem;
+	}
+
 	.site-header .lang-switcher__link {
+		display: grid;
+		gap: 0.1rem;
+		padding: 0.55rem 0.65rem;
+		border-radius: 0.55rem;
 		color: var(--ink);
+		text-decoration: none;
+		transition: background 0.15s ease;
 	}
 
 	.site-header .lang-switcher__link:hover,
 	.site-header .lang-switcher__link.is-current {
 		background: color-mix(in srgb, var(--magenta) 12%, transparent);
+	}
+
+	.site-header .lang-switcher__native {
+		font-size: 0.86rem;
+		font-weight: 700;
+	}
+
+	.site-header .lang-switcher__region {
+		font-size: 0.68rem;
+		color: var(--ink-faint);
+	}
+
+	.site-header .lang-switcher:not([open]) .lang-switcher__panel {
+		display: none;
 	}
 
 	.site-panel .lang-switcher {
@@ -142,6 +192,43 @@ const links = [
 		justify-content: flex-start;
 		height: 2.75rem;
 		border-radius: var(--radius-sm);
+	}
+
+	.site-panel .lang-switcher__note {
+		margin: 0 0 0.5rem;
+		padding: 0.45rem 0.55rem;
+		border-radius: 0.55rem;
+		background: color-mix(in srgb, var(--bg-panel) 80%, transparent);
+		color: var(--ink-muted);
+		font-size: 0.72rem;
+		line-height: 1.4;
+	}
+
+	.site-panel .lang-switcher__list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: grid;
+		gap: 0.25rem;
+	}
+
+	.site-panel .lang-switcher__link {
+		display: grid;
+		gap: 0.1rem;
+		padding: 0.55rem 0.65rem;
+		border-radius: 0.55rem;
+		color: var(--ink);
+		text-decoration: none;
+	}
+
+	.site-panel .lang-switcher__native {
+		font-size: 0.86rem;
+		font-weight: 700;
+	}
+
+	.site-panel .lang-switcher__region {
+		font-size: 0.68rem;
+		color: var(--ink-faint);
 	}
 
 	.site-panel .lang-switcher__panel {
@@ -182,9 +269,11 @@ const links = [
 	}
 
 	.site-brand {
-		display: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
 		min-width: 0;
-		flex: 1 1 auto;
+		flex: 0 0 auto;
 		margin-right: 0.5rem;
 		font-family: var(--font-display);
 		font-size: 0.95rem;
@@ -193,6 +282,16 @@ const links = [
 		color: var(--ink);
 		text-decoration: none;
 		white-space: nowrap;
+	}
+
+	.site-brand__logo {
+		width: 2rem;
+		height: 2rem;
+		flex-shrink: 0;
+		object-fit: contain;
+	}
+
+	.site-brand__name {
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
@@ -420,10 +519,12 @@ const links = [
 		}
 
 		.site-brand {
-			display: block;
 			flex: 1 1 auto;
 			min-width: 0;
-			max-width: none;
+		}
+
+		.site-brand__name {
+			display: block;
 		}
 
 		.site-header__bar {
@@ -448,6 +549,12 @@ const links = [
 
 		.site-panel {
 			max-height: calc(100dvh - var(--header-h) - var(--safe-top, 0px) - var(--safe-bottom, 0px));
+		}
+	}
+
+	@media (max-width: 768px) {
+		.site-brand__name {
+			display: none;
 		}
 	}
 

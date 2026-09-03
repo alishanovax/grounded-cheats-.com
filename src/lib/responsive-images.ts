@@ -42,14 +42,14 @@ export function contentSrcSet(baseSrc: string): string | undefined {
  * Native art ~1024×409 (~2.5:1).
  */
 export const heroResponsive: ResponsiveWidth[] = [
-	{ src: '/images/tarkov-cheats-hero-640w.webp', width: 640 },
-	{ src: '/images/tarkov-cheats-hero-1024w.webp', width: 1024 },
+	{ src: '/images/grounded-cheats-hero-640w.webp', width: 640 },
+	{ src: '/images/grounded-cheats-hero-1024w.webp', width: 1024 },
 ];
 
 export const heroDesktopResponsive: ResponsiveWidth[] = heroResponsive;
 
 /** Default LCP src — mid ladder WebP (~56KB). */
-export const heroSrc = '/images/tarkov-cheats-hero-1024w.webp';
+export const heroSrc = '/images/grounded-cheats-hero-1024w.webp';
 export const heroSrcSet = buildSrcSet(heroResponsive);
 export const heroSizes = '100vw';
 
@@ -57,9 +57,9 @@ export const heroSizes = '100vw';
 export const heroPreloadSrc = heroSrc;
 export const heroMimeType = 'image/webp';
 
-/** Exact native dimensions (no zoom crop). */
+/** Exact native dimensions (hero artwork). */
 export const heroWidth = 1024;
-export const heroHeight = 409;
+export const heroHeight = 576;
 
 /** Responsive widths for below-fold content images. */
 export const contentWidths = [480, 960] as const;

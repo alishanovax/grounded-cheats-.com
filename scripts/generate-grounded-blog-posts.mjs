@@ -1,0 +1,1404 @@
+#!/usr/bin/env node
+/**
+ * Generates src/data/blog/posts.generated.ts — Grounded cheats & trainer blog posts.
+ * Run: node scripts/generate-grounded-blog-posts.mjs
+ */
+import { writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const OUT = join(__dirname, '..', 'src', 'data', 'blog', 'posts.generated.ts');
+
+const LOCALES = ['en'];
+
+const EXT = {
+	game: '<a href="https://www.obsidian.net/games/grounded" target="_blank" rel="noopener noreferrer">Grounded</a>',
+	xbox: '<a href="https://www.xbox.com/games/grounded" target="_blank" rel="noopener noreferrer">Grounded on Xbox</a>',
+};
+
+const IMAGE_KEYS = [
+	'squadFight',
+	'headerArt',
+	'aimbotCombat',
+	'scavRunCombat',
+	'battleRoyaleCombat',
+	'extractFight',
+	'loadoutBuilder',
+	'scavRunMode',
+	'battleRoyaleIsland',
+	'raidMap',
+	'cheatsPackage',
+	'cover',
+	'playerEsp',
+	'rebootFight',
+];
+
+/** @typedef {{ h2: string, paragraphs: string[] }} Section */
+/** @typedef {{ id: string, imageKey: string, published: string, updated: string, category: string, featured?: boolean, slug: string, title: string, metaDescription: string, h1: string, intro: string, keywords: string[], imageAlt: string, sections: Section[] }} SourcePost */
+
+function dateForIndex(i) {
+	const start = new Date('2026-05-01T12:00:00Z');
+	const end = new Date('2026-09-01T12:00:00Z');
+	const t = i / 29;
+	const ms = start.getTime() + t * (end.getTime() - start.getTime());
+	return new Date(ms).toISOString().slice(0, 10);
+}
+
+function updatedFor(published) {
+	const d = new Date(`${published}T12:00:00Z`);
+	d.setDate(d.getDate() + 14);
+	return d.toISOString().slice(0, 10);
+}
+
+/** @type {SourcePost[]} */
+const sources = [
+	{
+		id: 'grounded-trainer-guide',
+		imageKey: IMAGE_KEYS[0],
+		published: dateForIndex(0),
+		updated: updatedFor(dateForIndex(0)),
+		category: 'Trainer',
+		featured: true,
+		slug: 'grounded-trainer-guide',
+		title: 'Grounded Trainer Guide: Safe Tweaks for Backyard Survival',
+		metaDescription:
+			'How a grounded trainer works on Windows PC — god mode, stamina, crafting, and setup tips for Steam and Xbox Game Pass players in 2026.',
+		h1: 'Grounded Trainer: What It Does and How to Use It',
+		intro:
+			'A grounded trainer lets you tune survival stats without grinding every spider fight. If you play on PC and want faster base builds or calmer exploration, this guide walks through what trainers offer and where to get a maintained one.',
+		keywords: ['grounded trainer', 'grounded trainer pc', 'grounded survival trainer', 'grounded cheats trainer'],
+		imageAlt: 'Grounded trainer menu open during a backyard spider fight',
+		sections: [
+			{
+				h2: 'What a grounded trainer actually changes',
+				paragraphs: [
+					`Trainers hook into ${EXT.game} on Windows and expose toggles for health, hunger, stamina, damage, and crafting. You are not editing save files by hand — you flip options mid-session while your character stays in the yard.`,
+					'Good trainers group features clearly: survival buffs on one tab, combat on another, movement on a third. That matters when a wolf spider rushes your grass plank wall and you only need one or two cheats active.',
+					'Our <a href="/grounded-trainer/">grounded trainer page</a> lists what ships with the license. Pair it with <a href="/features/">features</a> so you know which toggles match your play style.',
+				],
+			},
+			{
+				h2: 'Trainer vs free downloads from random forums',
+				paragraphs: [
+					'Forum trainers often stop working after Obsidian patches. They also bundle adware or outdated offsets. A maintained package rebuilds after updates and posts status on <a href="/updates/">updates</a>.',
+					'If you tried a free file and it crashed on launch, check Game Pass vs Steam paths. Trainers must match your client. Read <a href="/grounded-trainer-download/">trainer download</a> steps before you blame the game.',
+					'Steam and Game Pass both run on PC, but install folders differ. Point the loader at the right exe and run it as administrator once.',
+				],
+			},
+			{
+				h2: 'Settings that feel natural in co-op',
+				paragraphs: [
+					'Host-only tweaks keep multiplayer fair. Turn on infinite stamina for long build sessions, not one-hit kills that erase insect threat for everyone.',
+					'Start with god mode off and test stamina or crafting first. You keep tension while skipping the fifth trip for sprigs. See <a href="/grounded-god-mode/">god mode</a> and <a href="/grounded-free-crafting/">free crafting</a> for focused guides.',
+					`Before a big patch, skim <a href="/updates/">status</a> and the official ${EXT.game} notes. Trainers and game builds move together.`,
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-cheats-pc',
+		imageKey: IMAGE_KEYS[1],
+		published: dateForIndex(1),
+		updated: updatedFor(dateForIndex(1)),
+		category: 'Cheats',
+		featured: true,
+		slug: 'grounded-cheats-pc-guide',
+		title: 'Grounded Cheats PC: Steam and Game Pass Setup',
+		metaDescription:
+			'Grounded cheats PC guide for Windows — install steps, feature list, Steam vs Game Pass paths, and how to stay updated after patches.',
+		h1: 'Grounded Cheats PC: Windows Setup That Works',
+		intro:
+			'Searching grounded cheats pc usually means you want one Windows package that covers survival, combat, and crafting without juggling five tools. Here is how PC cheats fit Steam and Xbox Game Pass installs.',
+		keywords: ['grounded cheats pc', 'grounded pc cheats', 'grounded hacks pc windows', 'grounded steam cheats'],
+		imageAlt: 'Grounded PC gameplay with cheat overlay in the backyard',
+		sections: [
+			{
+				h2: 'Why PC is the main platform for cheats',
+				paragraphs: [
+					`${EXT.game} on console does not expose the same mod surface as Windows. PC players can run trainers, mod menus, and debug-style toggles that console cannot load.`,
+					'That does not mean every .exe from a random site is safe. Stick to sellers who publish rebuild notes and support both <a href="https://www.xbox.com/games/grounded" target="_blank" rel="noopener noreferrer">Game Pass PC</a> and Steam paths.',
+					'Start at <a href="/grounded-cheats/">grounded cheats</a> for the full stack, then compare plans on <a href="/pricing/">pricing</a>.',
+				],
+			},
+			{
+				h2: 'Install checklist before you launch',
+				paragraphs: [
+					'Close the game, disable overlays you do not need, and run the loader as admin. Select the Grounded executable — Game Pass lives under WindowsApps unless you moved it.',
+					'Turn on Windows Defender exclusions only if the vendor documents them. Fake "cracks" use that line to hide malware.',
+					'Follow <a href="/grounded-trainer-download/">trainer download</a> and confirm <a href="/updates/">updates</a> show online status before your first session.',
+				],
+			},
+			{
+				h2: 'Features PC players use most',
+				paragraphs: [
+					'Infinite health, free crafting, unlimited items, and super damage top the list for solo yard runs. Co-op hosts often prefer stamina and recipe unlocks instead of fly mode.',
+					'Mod menus bundle these toggles in one overlay. Read <a href="/grounded-mod-menu/">mod menu</a> and <a href="/features/">features</a> before you enable everything at once.',
+					'If something fails after a patch, see our <a href="/blog/grounded-cheats-not-working/">cheats not working</a> post before you reinstall Windows.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-cheat-engine',
+		imageKey: IMAGE_KEYS[2],
+		published: dateForIndex(2),
+		updated: updatedFor(dateForIndex(2)),
+		category: 'Tips',
+		featured: false,
+		slug: 'grounded-cheat-engine-guide',
+		title: 'Grounded Cheat Engine: Tables, Risk, and Alternatives',
+		metaDescription:
+			'Grounded cheat engine guide — how tables work, why scans break after patches, and when a dedicated trainer is easier than DIY memory editing.',
+		h1: 'Grounded Cheat Engine: Should You Use It?',
+		intro:
+			'Grounded cheat engine searches sound free and flexible. They can be — until a backyard update shifts every address and your health hack freezes the client.',
+		keywords: ['grounded cheat engine', 'grounded cheat table', 'grounded memory cheat', 'grounded ce table'],
+		imageAlt: 'Player browsing cheat engine values during Grounded crafting',
+		sections: [
+			{
+				h2: 'How cheat engine tables work in Grounded',
+				paragraphs: [
+					'Cheat Engine scans RAM for values like health or hunger, then locks them. Community tables save those pointers so you skip repeat scans.',
+					`Tables break when ${EXT.game} updates Unreal builds. A pointer that worked Tuesday dies on Wednesday patch notes.`,
+					'If you still want CE, keep backups and expect maintenance. Many players switch to <a href="/grounded-trainer/">grounded trainer</a> builds that ship offsets with status pages.',
+				],
+			},
+			{
+				h2: 'Risks cheat engine users overlook',
+				paragraphs: [
+					'Wrong locks corrupt saves or crash quests. Online co-op can desync if you spam item spawns while guests lack the same state.',
+					'CE also flags antivirus heuristics because it behaves like generic hacking software. Dedicated packages from <a href="/grounded-cheats/">grounded cheats</a> narrow that surface.',
+					'For a maintained table-style list without CE, see <a href="/blog/grounded-cheat-table-guide/">cheat table</a> options and <a href="/blog/grounded-all-cheats-list/">all cheats list</a>.',
+				],
+			},
+			{
+				h2: 'When a trainer is the better tool',
+				paragraphs: [
+					'If you only need god mode, crafting, or stamina, a trainer menu is faster than learning scan types.',
+					'Paid tools justify themselves with patch-day rebuilds on <a href="/updates/">updates</a> and support when Game Pass paths move.',
+					'Compare <a href="/grounded-mod-menu/">mod menu</a> features on <a href="/pricing/">pricing</a> before you spend weekends refreshing CE pointers.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-trainer-download',
+		imageKey: IMAGE_KEYS[3],
+		published: dateForIndex(3),
+		updated: updatedFor(dateForIndex(3)),
+		category: 'Setup',
+		featured: false,
+		slug: 'grounded-trainer-download-setup',
+		title: 'Grounded Trainer Download: Install Steps for PC',
+		metaDescription:
+			'Grounded trainer download walkthrough — license delivery, loader setup, Steam vs Game Pass exe paths, and first-launch checks on Windows.',
+		h1: 'Grounded Trainer Download and Setup',
+		intro:
+			'A grounded trainer download should take minutes, not an afternoon of forum threads. This setup guide covers delivery, paths, and the checks we run before the first toggle.',
+		keywords: ['grounded trainer download', 'download grounded trainer', 'grounded trainer install', 'grounded trainer pc download'],
+		imageAlt: 'Grounded trainer download screen on a Windows desktop',
+		sections: [
+			{
+				h2: 'What you get after checkout',
+				paragraphs: [
+					'You receive a license key, loader link, and short PDF or web steps. No torrents, no password archives from strangers.',
+					'Save your order ID. Support needs it if Game Pass moves your install folder after an Xbox app update.',
+					'Plans and delivery timing are on <a href="/pricing/">pricing</a>. Feature list lives on <a href="/grounded-trainer-download/">trainer download</a>.',
+				],
+			},
+			{
+				h2: 'Pointing the loader at the right exe',
+				paragraphs: [
+					'Steam default: Steam library → Grounded → Grounded.exe. Game Pass: use the vendor path guide for WindowsApps or your custom install.',
+					'Launch the loader as administrator once. Start the game after the overlay says attached — not before.',
+					'If attach fails, verify <a href="/updates/">updates</a> and retry without Discord overlay or extra injectors running.',
+				],
+			},
+			{
+				h2: 'First session smoke test',
+				paragraphs: [
+					'Load a single-player save. Enable one toggle — stamina or free crafting — and play ten minutes. Add combat cheats only after stability looks good.',
+					'Read <a href="/grounded-trainer/">trainer</a> and <a href="/features/">features</a> so you know hotkeys before a boss fight.',
+					`Official game info stays at ${EXT.game}. Trainer docs stay on <a href="/blog/">blog</a> and <a href="/updates/">status</a>.`,
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-mod-menu',
+		imageKey: IMAGE_KEYS[4],
+		published: dateForIndex(4),
+		updated: updatedFor(dateForIndex(4)),
+		category: 'Cheats',
+		featured: true,
+		slug: 'grounded-mod-menu-guide',
+		title: 'Grounded Mod Menu: One Overlay for Every Cheat',
+		metaDescription:
+			'Grounded mod menu explained — god mode, crafting, items, fly mode, and combat toggles in one overlay for Windows PC players.',
+		h1: 'Grounded Mod Menu: Features in One Place',
+		intro:
+			'A grounded mod menu is the control panel for cheats — survival, combat, movement, and spawns without alt-tabbing into five programs.',
+		keywords: ['grounded mod menu', 'grounded mod menu pc', 'grounded cheat menu', 'grounded trainer menu'],
+		imageAlt: 'Grounded mod menu overlay with god mode and crafting toggles',
+		sections: [
+			{
+				h2: 'What belongs in a solid mod menu',
+				paragraphs: [
+					'Expect grouped tabs: player stats, weapons, crafting, world, movement. Each toggle should have a hotkey and clear on/off state.',
+					'Cheap menus dump fifty buttons on one page. Good ones hide advanced spawns behind a second click so you do not fat-finger fly mode during a base defense.',
+					'Our <a href="/grounded-mod-menu/">mod menu</a> page mirrors what ships today. Cross-check <a href="/features/">features</a> before you buy.',
+				],
+			},
+			{
+				h2: 'Mod menu vs standalone trainer',
+				paragraphs: [
+					'Same engine, different skin. Menus emphasize overlay UX; trainers may feel more minimal. Pick whichever you will actually read mid-fight.',
+					'Both should update through one license. Avoid shops that sell "menu DLC" for basic god mode.',
+					'See <a href="/grounded-trainer/">trainer</a> and <a href="/grounded-cheats/">cheats</a> pillars for side-by-side detail.',
+				],
+			},
+			{
+				h2: 'Co-op etiquette with menus open',
+				paragraphs: [
+					'Tell friends when you enable global buffs. Unlimited items on the host can flood guests with sync issues.',
+					'Stealth and damage multipliers affect everyone\'s fun if you troll. Use <a href="/grounded-god-mode/">god mode</a> solo first.',
+					`After ${EXT.game} patches, open <a href="/updates/">updates</a> before you invite a party.`,
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-hacks-pc',
+		imageKey: IMAGE_KEYS[5],
+		published: dateForIndex(5),
+		updated: updatedFor(dateForIndex(5)),
+		category: 'Cheats',
+		featured: false,
+		slug: 'grounded-hacks-pc-overview',
+		title: 'Grounded Hacks PC: Combat, Survival, and Building',
+		metaDescription:
+			'Grounded hacks PC overview — health, damage, crafting, fly mode, and ESP-style tools for backyard survival on Windows.',
+		h1: 'Grounded Hacks PC: What Players Actually Enable',
+		intro:
+			'Grounded hacks pc covers a wide search intent — some want god mode, others want free crafting or spider ESP. Here is how those hacks map to real features.',
+		keywords: ['grounded hacks pc', 'grounded hacks', 'grounded pc hacks', 'grounded cheat hacks'],
+		imageAlt: 'Grounded PC hacks menu during an oak tree base build',
+		sections: [
+			{
+				h2: 'Survival hacks vs combat hacks',
+				paragraphs: [
+					'Survival hacks cover hunger, thirst, stamina, and crafting costs. Combat hacks cover damage, defense, and one-hit kills on insects.',
+					'Building sessions want the first group. Broodmother attempts might need both — but turning on everything dilutes the game fast.',
+					'Browse <a href="/grounded-cheats/">grounded cheats</a> and <a href="/grounded-free-crafting/">free crafting</a> for split guides.',
+				],
+			},
+			{
+				h2: 'Information hacks in the yard',
+				paragraphs: [
+					'ESP-style tools mark spiders, loot, and landmarks through grass. They answer "what is that vibration" before you face-tank a wolf spider.',
+					'Pair markers with <a href="/grounded-god-mode/">god mode</a> only if you still want threat. Many players keep ESP on and combat cheats off.',
+					'Details sit on <a href="/features/">features</a> under player and world categories.',
+				],
+			},
+			{
+				h2: 'Staying undetected and stable',
+				paragraphs: [
+					'Grounded is co-op friendly — blatant hacks in public lobbies draw reports even without a heavy anti-cheat lecture.',
+					'Use conservative toggles, read <a href="/updates/">updates</a>, and keep the loader current after Obsidian patches.',
+					'Platform notes for Steam and Game Pass live in <a href="/blog/grounded-steam-xbox-cheats/">Steam and Xbox cheats</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-cheat-table',
+		imageKey: IMAGE_KEYS[6],
+		published: dateForIndex(6),
+		updated: updatedFor(dateForIndex(6)),
+		category: 'Tips',
+		featured: false,
+		slug: 'grounded-cheat-table-guide',
+		title: 'Grounded Cheat Table: Community Tables vs Trainer',
+		metaDescription:
+			'Grounded cheat table guide — where tables break, how to verify downloads, and trainer alternatives when pointers die after patches.',
+		h1: 'Grounded Cheat Table: What Still Works',
+		intro:
+			'A grounded cheat table spreads across Nexus, GitHub, and random Discord pins. Some rows are gold; most rot after the next hotfix.',
+		keywords: ['grounded cheat table', 'grounded ct table', 'grounded cheat engine table', 'grounded table download'],
+		imageAlt: 'Grounded cheat table values for health and stamina editing',
+		sections: [
+			{
+				h2: 'Reading a cheat table safely',
+				paragraphs: [
+					`Check upload date against the latest ${EXT.game} build. Tables without version tags are guesses.`,
+					'Scan files with antivirus before you open Cheat Engine. Reputable authors publish checksums; random Mega links do not.',
+					'If the table only lists "health" with no pointer chain notes, expect to rescan often.',
+				],
+			},
+			{
+				h2: 'Common table features',
+				paragraphs: [
+					'Most tables touch health, oxygen, hunger, thirst, and item counts. Advanced ones add movement speed or jump height.',
+					'Spawn functions in CE are fragile — prefer <a href="/blog/grounded-spawn-items-command/">spawn commands</a> or a <a href="/grounded-mod-menu/">mod menu</a> when you need gear fast.',
+					'For a full toggle list without CE, see <a href="/blog/grounded-all-cheats-list/">all cheats list</a>.',
+				],
+			},
+			{
+				h2: 'When to switch to a maintained trainer',
+				paragraphs: [
+					'If you spend more time fixing pointers than playing, a trainer subscription is cheaper than your hourly rate.',
+					'<a href="/grounded-trainer/">Trainer</a> builds ship with <a href="/updates/">patch notes</a> and support for Game Pass path changes.',
+					'Compare <a href="/pricing/">pricing</a> against the hours you lose each wipe.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-fling-trainer',
+		imageKey: IMAGE_KEYS[7],
+		published: dateForIndex(7),
+		updated: updatedFor(dateForIndex(7)),
+		category: 'Trainer',
+		featured: false,
+		slug: 'grounded-fling-trainer-review',
+		title: 'Grounded Fling Trainer: Limits and Better Options',
+		metaDescription:
+			'Grounded fling trainer review — what free trainers miss, patch breakage, and maintained alternatives with mod menu and status pages.',
+		h1: 'Grounded Fling Trainer: Know the Limits',
+		intro:
+			'Grounded fling trainer results show up in every Google search. Free trainers can work for a week, then silence after a patch.',
+		keywords: ['grounded fling trainer', 'fling grounded trainer', 'grounded trainer fling', 'free grounded trainer'],
+		imageAlt: 'Free trainer site compared with maintained Grounded trainer tools',
+		sections: [
+			{
+				h2: 'What fling-style trainers usually include',
+				paragraphs: [
+					'Basic god mode, stamina, and maybe damage multipliers. Menus are plain text — fine for solo testing.',
+					'They rarely document Game Pass paths or co-op quirks. You are on your own when attach fails.',
+					'For a feature-complete overlay, compare <a href="/grounded-trainer/">trainer</a> and <a href="/grounded-mod-menu/">mod menu</a>.',
+				],
+			},
+			{
+				h2: 'Why free trainers disappear',
+				paragraphs: [
+					`Authors update when they feel like it. ${EXT.game} hotfixes do not wait.`,
+					'Missing status pages mean you trial-and-error every launch. We publish <a href="/updates/">updates</a> instead of ghosting.',
+					'Read <a href="/blog/grounded-cheats-not-working/">cheats not working</a> before you download a third fling build tonight.',
+				],
+			},
+			{
+				h2: 'When free is enough vs when to pay',
+				paragraphs: [
+					'Free works for a one-night creative mode tour. Pay when you want crafting, ESP, spawns, and patch support in one license.',
+					'See <a href="/blog/best-grounded-trainer-2025/">best trainer 2025</a> for an honest comparison table mindset.',
+					'Checkout paths and plans: <a href="/pricing/">pricing</a> and <a href="/grounded-trainer-download/">download</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-wemod',
+		imageKey: IMAGE_KEYS[8],
+		published: dateForIndex(8),
+		updated: updatedFor(dateForIndex(8)),
+		category: 'Tips',
+		featured: false,
+		slug: 'grounded-wemod-alternatives',
+		title: 'Grounded WeMod: Pros, Cons, and Other Trainers',
+		metaDescription:
+			'Grounded WeMod guide — what the platform offers, where it falls short for advanced cheats, and dedicated trainer alternatives.',
+		h1: 'Grounded WeMod vs Dedicated Trainers',
+		intro:
+			'Grounded wemod is the first stop for many PC players. The app is polished, but advanced yard cheats may need a specialized package.',
+		keywords: ['grounded wemod', 'wemod grounded', 'grounded wemod cheats', 'grounded trainer wemod'],
+		imageAlt: 'WeMod style trainer UI compared with Grounded mod menu',
+		sections: [
+			{
+				h2: 'What WeMod handles well',
+				paragraphs: [
+					'Simple toggles — health, stamina, easy crafting — with one-click enable. Great for casual solo runs after work.',
+					'The launcher tracks some games automatically. You skip manual exe hunting on Steam.',
+					'If that is all you need, try it before you pay anyone. When you hit limits, read <a href="/grounded-trainer/">trainer</a> options.',
+				],
+			},
+			{
+				h2: 'Where dedicated tools pull ahead',
+				paragraphs: [
+					'Deep menus add item spawns, ESP, fly mode, noclip, and per-weapon damage without Pro paywalls on every toggle.',
+					`Game Pass path changes and same-day patch rebuilds matter for ${EXT.game} early access cadence.`,
+					'Compare stacks on <a href="/features/">features</a> and <a href="/grounded-mod-menu/">mod menu</a>.',
+				],
+			},
+			{
+				h2: 'Switching without wrecking saves',
+				paragraphs: [
+					'Disable all WeMod cheats, close the game, then attach a new loader. Stacking injectors causes crashes.',
+					'Back up saves before testing spawns or unlimited items.',
+					'Status and setup: <a href="/updates/">updates</a>, <a href="/grounded-cheats/">cheats</a>, <a href="/blog/">blog</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-infinite-health',
+		imageKey: IMAGE_KEYS[9],
+		published: dateForIndex(9),
+		updated: updatedFor(dateForIndex(9)),
+		category: 'Cheats',
+		featured: false,
+		slug: 'grounded-infinite-health-cheat',
+		title: 'Grounded Infinite Health Cheat: God Mode Done Right',
+		metaDescription:
+			'Grounded infinite health cheat guide — god mode toggles, fall damage, poison, and co-op tips for Windows PC trainers.',
+		h1: 'Grounded Infinite Health Cheat',
+		intro:
+			'The grounded infinite health cheat is the most searched survival toggle — and the easiest to abuse until the yard feels flat.',
+		keywords: ['grounded infinite health cheat', 'grounded infinite health', 'grounded health cheat', 'grounded god mode health'],
+		imageAlt: 'Grounded player with infinite health fighting a wolf spider',
+		sections: [
+			{
+				h2: 'What infinite health actually blocks',
+				paragraphs: [
+					'Good god mode stops melee burst, fall damage, drowning timer, and poison ticks — not just the red bar.',
+					'Some trainers separate "infinite health" from "invincible shield" so you can still feel chip damage for feedback.',
+					'Full detail on <a href="/grounded-god-mode/">god mode</a> and <a href="/grounded-trainer/">trainer</a> pages.',
+				],
+			},
+			{
+				h2: 'Solo vs co-op health cheats',
+				paragraphs: [
+					'Solo: enable freely while you learn parry timing against insects. Co-op: ask before you face-tank bosses for the group.',
+					'Guests on your save inherit some host effects. Test in a throwaway world first.',
+					'Pair with <a href="/grounded-infinite-stamina-cheat/">infinite stamina</a> for long hikes, not with <a href="/blog/grounded-one-hit-kills/">one hit kills</a> unless you want zero tension.',
+				],
+			},
+			{
+				h2: 'When to turn god mode off',
+				paragraphs: [
+					'Disable for story moments and first-time boss introductions. You remember patterns better with stakes.',
+					'If cheats stop working after a patch, check <a href="/updates/">updates</a> before you toggle random forum hacks.',
+					`Game balance notes live at ${EXT.game}; trainer status stays on <a href="/grounded-cheats/">cheats</a>.`,
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-god-mode',
+		imageKey: IMAGE_KEYS[10],
+		published: dateForIndex(10),
+		updated: updatedFor(dateForIndex(10)),
+		category: 'Cheats',
+		featured: true,
+		slug: 'grounded-god-mode-guide',
+		title: 'Grounded God Mode: Invincibility and Damage Reduction',
+		metaDescription:
+			'Grounded god mode explained — invincibility toggles, fall damage, status effects, and trainer settings for PC survival.',
+		h1: 'Grounded God Mode Guide',
+		intro:
+			'Grounded god mode means more than infinite HP. It is the whole invincibility stack — falls, poison, hunger ticks, and stunlock.',
+		keywords: ['grounded god mode', 'grounded god mode cheat', 'grounded invincibility', 'grounded god mode trainer'],
+		imageAlt: 'Grounded god mode active while exploring the flooded depths',
+		sections: [
+			{
+				h2: 'God mode layers trainers should expose',
+				paragraphs: [
+					'Separate toggles for health lock, armor bypass, status immunity, and fall damage help you scale difficulty.',
+					'Full god mode for build tours; partial god mode when you still want hunger pressure.',
+					'See <a href="/grounded-god-mode/">god mode product page</a> and <a href="/features/">features</a>.',
+				],
+			},
+			{
+				h2: 'God mode with combat cheats',
+				paragraphs: [
+					'God mode plus super damage melts insects before animations finish. Fun once, boring fast.',
+					'Try god mode with normal weapons first — learn weak points on ladybugs and spiders.',
+					'Combat multipliers are covered in <a href="/blog/grounded-super-damage/">super damage</a> and <a href="/blog/grounded-one-hit-kills/">one hit kills</a>.',
+				],
+			},
+			{
+				h2: 'Multiplayer and achievement notes',
+				paragraphs: [
+					'God mode can block achievements on some setups. Use a cheat world if you care about Steam badges.',
+					`${EXT.xbox} Game Pass shares the same PC binary — same trainer attach rules apply.`,
+					'Patch day: <a href="/updates/">updates</a> before you load a shared save.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-free-crafting',
+		imageKey: IMAGE_KEYS[11],
+		published: dateForIndex(11),
+		updated: updatedFor(dateForIndex(11)),
+		category: 'Cheats',
+		featured: true,
+		slug: 'grounded-free-crafting-guide',
+		title: 'Grounded Free Crafting: Build Your Base Faster',
+		metaDescription:
+			'Grounded free crafting cheat — remove material costs, upgrade gear fast, and avoid grind loops on Windows PC trainers.',
+		h1: 'Grounded Free Crafting Cheat',
+		intro:
+			'Grounded free crafting removes the sprig grind so you can test base layouts and armor tiers in one evening.',
+		keywords: ['grounded free crafting', 'grounded free craft cheat', 'grounded crafting cheat', 'grounded unlimited crafting'],
+		imageAlt: 'Grounded free crafting menu building a grass plank fortress',
+		sections: [
+			{
+				h2: 'What free crafting changes',
+				paragraphs: [
+					'Workbench recipes cost zero materials while the toggle is on. Upgrades and repairs usually respect the same flag.',
+					'It does not auto-unlock recipes you have not analyzed — pair with <a href="/blog/grounded-unlock-all-recipes/">unlock all recipes</a> if you want every blueprint.',
+					'Product focus: <a href="/grounded-free-crafting/">free crafting page</a>.',
+				],
+			},
+			{
+				h2: 'Base building without resource burnout',
+				paragraphs: [
+					'Sketch mega bases in creative mode worlds, then copy layouts to your main save manually.',
+					'Free crafting shines for tier-three armor tests before you commit rare parts.',
+					'Combine with <a href="/grounded-unlimited-items/">unlimited items</a> only if you accept inventory clutter.',
+				],
+			},
+			{
+				h2: 'Co-op crafting etiquette',
+				paragraphs: [
+					'Hosts with free crafting can accidentally trivialise guest progression. Sync plans in voice chat.',
+					'Turn crafting cheats off for story beats where gear drip matters.',
+					'More cheats: <a href="/grounded-cheats/">cheats</a>, <a href="/grounded-mod-menu/">mod menu</a>, <a href="/blog/">blog</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-unlimited-items',
+		imageKey: IMAGE_KEYS[12],
+		published: dateForIndex(12),
+		updated: updatedFor(dateForIndex(12)),
+		category: 'Cheats',
+		featured: false,
+		slug: 'grounded-unlimited-items-guide',
+		title: 'Grounded Unlimited Items: Stacks, Duplication, and Spawns',
+		metaDescription:
+			'Grounded unlimited items guide — max stacks, duplication toggles, spawn menus, and save safety on PC trainers.',
+		h1: 'Grounded Unlimited Items Cheat',
+		intro:
+			'Grounded unlimited items can mean max stack size, duped mats, or a full spawn list. Each method hits performance differently.',
+		keywords: ['grounded unlimited items', 'grounded item cheat', 'grounded unlimited materials', 'grounded item spawn'],
+		imageAlt: 'Grounded inventory with unlimited items and stacked resources',
+		sections: [
+			{
+				h2: 'Stack multipliers vs spawn menus',
+				paragraphs: [
+					'Stack cheats multiply what you already loot — safer for saves. Spawn menus inject new IDs and can bloat worlds.',
+					'Use stacks for normal play; spawns for lab testing.',
+					'Spawn detail: <a href="/blog/grounded-spawn-items-command/">spawn items command</a> and <a href="/blog/grounded-item-ids/">item IDs</a>.',
+				],
+			},
+			{
+				h2: 'Performance and save size',
+				paragraphs: [
+					'Thousands of dropped pebbles lag the yard. Spawn in chests or clear clutter often.',
+					'Back up saves before mass spawns. Corrupted inventories are rare but annoying.',
+					'<a href="/grounded-mod-menu/">Mod menu</a> spawns should include search — scrolling 500 IDs is misery.',
+				],
+			},
+			{
+				h2: 'Pairing with free crafting',
+				paragraphs: [
+					'You rarely need both unlimited items and <a href="/grounded-free-crafting/">free crafting</a>. Pick one grind killer.',
+					'For balanced progression, unlimited items on a test save only.',
+					'Trainer hub: <a href="/grounded-trainer/">trainer</a>, status: <a href="/updates/">updates</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-no-hunger',
+		imageKey: IMAGE_KEYS[13],
+		published: dateForIndex(13),
+		updated: updatedFor(dateForIndex(13)),
+		category: 'Tips',
+		featured: false,
+		slug: 'grounded-no-hunger-cheat',
+		title: 'Grounded No Hunger: Food Cheats and Thirst Tweaks',
+		metaDescription:
+			'Grounded no hunger cheat — disable food and thirst drain, explore longer, and pair with stamina toggles on PC.',
+		h1: 'Grounded No Hunger Cheat',
+		intro:
+			'Grounded no hunger removes the clock that sends you home mid-cave. Same trainers usually bundle thirst and stamina.',
+		keywords: ['grounded no hunger', 'grounded hunger cheat', 'grounded no thirst', 'grounded food cheat'],
+		imageAlt: 'Grounded character exploring without hunger bar pressure',
+		sections: [
+			{
+				h2: 'Hunger, thirst, and stamina together',
+				paragraphs: [
+					'Survival drains are linked in code — fix one with a naive CE scan and thirst may still kill you.',
+					'Trainer menus label all three. Enable the set for long mapping trips.',
+					'See <a href="/blog/grounded-infinite-stamina-cheat/">infinite stamina</a> and <a href="/grounded-trainer/">trainer</a>.',
+				],
+			},
+			{
+				h2: 'Exploration without constant snack breaks',
+				paragraphs: [
+					'No hunger shines in the flooded zones and hedge lab chains where food slots matter.',
+					'Leave hunger on during early game if you want to learn cooking buffs.',
+					`Official survival loop: ${EXT.game}.`,
+				],
+			},
+			{
+				h2: 'Multiplayer considerations',
+				paragraphs: [
+					'Guests still see their UI bars — only the host cheat state may sync oddly.',
+					'Test privately before a four-player arc.',
+					'More survival toggles: <a href="/grounded-cheats/">cheats</a>, <a href="/features/">features</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-super-damage',
+		imageKey: IMAGE_KEYS[0],
+		published: dateForIndex(14),
+		updated: updatedFor(dateForIndex(14)),
+		category: 'Cheats',
+		featured: false,
+		slug: 'grounded-super-damage',
+		title: 'Grounded Super Damage: Weapon Multipliers Explained',
+		metaDescription:
+			'Grounded super damage cheat — weapon multipliers, insect weak points, and trainer sliders without breaking co-op.',
+		h1: 'Grounded Super Damage Cheat',
+		intro:
+			'Grounded super damage turns pebble spears into boss melters. Sliders beat binary on switches — you keep some challenge.',
+		keywords: ['grounded super damage', 'grounded damage cheat', 'grounded damage multiplier', 'grounded weapon damage cheat'],
+		imageAlt: 'Grounded super damage boost against a yard insect',
+		sections: [
+			{
+				h2: 'Multiplier sliders vs one hit kills',
+				paragraphs: [
+					'2x–5x damage still needs weak-point aim. 100x deletes gameplay.',
+					'Start low for broodmother prep so you learn dodge windows.',
+					'Extreme mode: <a href="/blog/grounded-one-hit-kills/">one hit kills</a>.',
+				],
+			},
+			{
+				h2: 'Weapon types and status effects',
+				paragraphs: [
+					'Bows, spears, and swords scale differently with multipliers. Acid and gas still help on tough bugs.',
+					'Super damage does not replace elemental weaknesses on some bosses.',
+					'Combat features: <a href="/grounded-mod-menu/">mod menu</a>, <a href="/features/">features</a>.',
+				],
+			},
+			{
+				h2: 'Co-op damage sync',
+				paragraphs: [
+					'Host damage cheats can make guests feel useless. Dial back or disable for group hunts.',
+					'Pair with <a href="/grounded-god-mode/">god mode</a> only in private test worlds.',
+					'Patch status: <a href="/updates/">updates</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-one-hit-kills',
+		imageKey: IMAGE_KEYS[1],
+		published: dateForIndex(15),
+		updated: updatedFor(dateForIndex(15)),
+		category: 'Cheats',
+		featured: false,
+		slug: 'grounded-one-hit-kills',
+		title: 'Grounded One Hit Kills: Boss Testing and Sandbox Play',
+		metaDescription:
+			'Grounded one hit kills toggle — when to use it, boss testing tips, and why to keep a separate sandbox save.',
+		h1: 'Grounded One Hit Kills',
+		intro:
+			'Grounded one hit kills is a sandbox button — brilliant for screenshot tours, terrible for learning parries.',
+		keywords: ['grounded one hit kills', 'grounded one shot kill', 'grounded instakill', 'grounded kill cheat'],
+		imageAlt: 'Grounded one hit kill defeating an insect instantly',
+		sections: [
+			{
+				h2: 'Good uses for instakill',
+				paragraphs: [
+					'Clearing trash mobs while base building, testing loot tables, or speeding NG+ gear runs.',
+					'Disable before story bosses if you want mechanics practice.',
+					'Less extreme option: <a href="/blog/grounded-super-damage/">super damage</a> at 3x.',
+				],
+			},
+			{
+				h2: 'Bosses and quest scripts',
+				paragraphs: [
+					'Some quest steps expect phased boss health. Instakill can skip cues and soft-lock scripts.',
+					'If a boss door will not open, turn off kills and retry.',
+					'Debug help: <a href="/blog/grounded-debug-commands/">debug commands</a>.',
+				],
+			},
+			{
+				h2: 'Keep a sandbox save',
+				paragraphs: [
+					'One world with cheats, one vanilla — avoids regret.',
+					'Enable via <a href="/grounded-trainer/">trainer</a> or <a href="/grounded-mod-menu/">mod menu</a>.',
+					'Guides: <a href="/blog/how-to-cheat-in-grounded/">how to cheat</a>, <a href="/grounded-cheats/">cheats</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-fly-mode',
+		imageKey: IMAGE_KEYS[2],
+		published: dateForIndex(16),
+		updated: updatedFor(dateForIndex(16)),
+		category: 'Cheats',
+		featured: false,
+		slug: 'grounded-fly-mode-guide',
+		title: 'Grounded Fly Mode: Traversal and Base Scouting',
+		metaDescription:
+			'Grounded fly mode cheat — scout bases, reach oak branches, and pair with noclip safely on Windows PC.',
+		h1: 'Grounded Fly Mode Cheat',
+		intro:
+			'Grounded fly mode lets you see the yard from above — perfect for planning zip lines and tower bases.',
+		keywords: ['grounded fly mode', 'grounded fly cheat', 'grounded flying hack', 'grounded fly trainer'],
+		imageAlt: 'Grounded fly mode view over the backyard canopy',
+		sections: [
+			{
+				h2: 'Fly mode vs jump cheats',
+				paragraphs: [
+					'Fly offers full vertical control; mega-jump only boosts height. Fly wins for map surveys.',
+					'Movement speed while flying can clip geometry — slow down near rocks.',
+					'Often bundled with <a href="/blog/grounded-noclip/">noclip</a> on <a href="/grounded-mod-menu/">mod menu</a>.',
+				],
+			},
+			{
+				h2: 'Scouting builds and landmarks',
+				paragraphs: [
+					'Scout oak tree branches and pond edges before hauling planks.',
+					'Mark spots mentally, land, then play legit to place foundations.',
+					'ESP markers on <a href="/features/">features</a> complement fly tours.',
+				],
+			},
+			{
+				h2: 'Multiplayer and fall damage',
+				paragraphs: [
+					'Disable fly before landing if god mode is off — fall damage still hurts.',
+					'Flying hosts confuse guests who do not see the same position sync.',
+					'Traversal cheats: <a href="/grounded-trainer/">trainer</a>, <a href="/updates/">updates</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-noclip',
+		imageKey: IMAGE_KEYS[3],
+		published: dateForIndex(17),
+		updated: updatedFor(dateForIndex(17)),
+		category: 'Cheats',
+		featured: false,
+		slug: 'grounded-noclip-guide',
+		title: 'Grounded Noclip: Clip Through Walls and Labs',
+		metaDescription:
+			'Grounded noclip cheat — clip through terrain, reach lab interiors fast, and avoid stuck geometry on PC.',
+		h1: 'Grounded Noclip Cheat',
+		intro:
+			'Grounded noclip walks through mesh collision — handy when a glitch traps you, risky when you skip intended gates.',
+		keywords: ['grounded noclip', 'grounded no clip', 'grounded clip cheat', 'grounded noclip trainer'],
+		imageAlt: 'Grounded noclip passing through a rock wall in the yard',
+		sections: [
+			{
+				h2: 'Rescue tool vs progression skip',
+				paragraphs: [
+					'Use noclip to escape stuck legs in grass, not to skip lab key quests on first playthrough.',
+					'Skipping fog gates can break BURG.L prompts.',
+					`Stuck without cheats? ${EXT.game} forums list legit outs.`,
+				],
+			},
+			{
+				h2: 'Noclip with fly mode',
+				paragraphs: [
+					'Fly plus noclip is the fastest creative mode tour. Disable both before saving if you want integrity.',
+					'Slow movement prevents falling through the world floor.',
+					'See <a href="/blog/grounded-fly-mode-guide/">fly mode</a> and <a href="/grounded-god-mode/">god mode</a>.',
+				],
+			},
+			{
+				h2: 'Co-op desync warning',
+				paragraphs: [
+					'Guests may see you rubber-band. Noclip solo or host-only.',
+					'Enable on <a href="/grounded-mod-menu/">mod menu</a> movement tab.',
+					'More: <a href="/grounded-cheats/">cheats</a>, <a href="/blog/">blog</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-spawn-items-command',
+		imageKey: IMAGE_KEYS[4],
+		published: dateForIndex(18),
+		updated: updatedFor(dateForIndex(18)),
+		category: 'Commands',
+		featured: false,
+		slug: 'grounded-spawn-items-command',
+		title: 'Grounded Spawn Items Command and Trainer Spawns',
+		metaDescription:
+			'Grounded spawn items command guide — debug spawns, trainer menus, item IDs, and save safety for PC players.',
+		h1: 'Grounded Spawn Items Command',
+		intro:
+			'Grounded spawn items command searches mix console debug lines with trainer spawn lists. They are not the same system.',
+		keywords: ['grounded spawn items command', 'grounded spawn item', 'grounded spawn cheat', 'grounded give item command'],
+		imageAlt: 'Grounded spawn menu listing armor and weapon item IDs',
+		sections: [
+			{
+				h2: 'Console debug vs trainer spawn menu',
+				paragraphs: [
+					'Retail builds limit classic console spawning. Mod trainers expose searchable spawn lists with icons.',
+					'Debug commands need unlock steps on some patches — see <a href="/blog/grounded-debug-commands/">debug commands</a>.',
+					'Trainer spawns: <a href="/grounded-mod-menu/">mod menu</a> and <a href="/grounded-unlimited-items/">unlimited items</a>.',
+				],
+			},
+			{
+				h2: 'Using item IDs correctly',
+				paragraphs: [
+					'Every pebble and pauldron has an internal ID. Wrong ID spawns nothing or crashes the cell.',
+					'Keep a reference sheet from <a href="/blog/grounded-item-ids/">item IDs</a> post.',
+					'Spawn one item, test, then batch — do not dump 200 entries.',
+				],
+			},
+			{
+				h2: 'Quest and achievement safety',
+				paragraphs: [
+					'Spawning quest items early can skip dialogue. Use a lab save.',
+					'Achievements may disable on cheat worlds — fine for sandbox.',
+					'Command hub: <a href="/blog/grounded-console-commands/">console commands</a>, <a href="/grounded-cheats/">cheats</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-unlock-all-recipes',
+		imageKey: IMAGE_KEYS[5],
+		published: dateForIndex(19),
+		updated: updatedFor(dateForIndex(19)),
+		category: 'Commands',
+		featured: false,
+		slug: 'grounded-unlock-all-recipes',
+		title: 'Grounded Unlock All Recipes: Science Without Grind',
+		metaDescription:
+			'Grounded unlock all recipes cheat — instant blueprints, analyzer skips, and pairing with free crafting on PC.',
+		h1: 'Grounded Unlock All Recipes',
+		intro:
+			'Grounded unlock all recipes skips the analyzer queue so every bench tier is visible immediately.',
+		keywords: ['grounded unlock all recipes', 'grounded all recipes cheat', 'grounded recipe unlock', 'grounded blueprint cheat'],
+		imageAlt: 'Grounded workbench with all recipes unlocked on screen',
+		sections: [
+			{
+				h2: 'Recipe unlock vs free crafting',
+				paragraphs: [
+					'Unlock shows blueprints; <a href="/grounded-free-crafting/">free crafting</a> removes material cost. You may want both on test saves.',
+					'Science chips still matter on legit saves — unlock cheats bypass chip gating only.',
+					'Trainer toggles on <a href="/grounded-trainer/">trainer</a> page.',
+				],
+			},
+			{
+				h2: 'When unlock hurts tutorial flow',
+				paragraphs: [
+					'New players drown in bench tabs without BURG.L context.',
+					'Unlock after one vanilla session or use a creative world.',
+					'Progression tips: <a href="/blog/how-to-cheat-in-grounded/">how to cheat</a>.',
+				],
+			},
+			{
+				h2: 'Co-op and milestone sync',
+				paragraphs: [
+					'Host unlock may not mirror to guests — expect guests to analyze normally.',
+					'Pair with <a href="/blog/grounded-console-commands/">console commands</a> only on private hosts.',
+					'Status: <a href="/updates/">updates</a>, features: <a href="/features/">features</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-infinite-stamina',
+		imageKey: IMAGE_KEYS[6],
+		published: dateForIndex(20),
+		updated: updatedFor(dateForIndex(20)),
+		category: 'Cheats',
+		featured: false,
+		slug: 'grounded-infinite-stamina-cheat',
+		title: 'Grounded Infinite Stamina: Sprint and Swim Without Drain',
+		metaDescription:
+			'Grounded infinite stamina cheat — sprint, swim, and combat dodge without drain on Windows PC trainers.',
+		h1: 'Grounded Infinite Stamina Cheat',
+		intro:
+			'Grounded infinite stamina is the quiet quality-of-life toggle — less flashy than god mode, more useful daily.',
+		keywords: ['grounded infinite stamina', 'grounded stamina cheat', 'grounded unlimited stamina', 'grounded no stamina drain'],
+		imageAlt: 'Grounded infinite stamina sprint across the lawn',
+		sections: [
+			{
+				h2: 'Stamina in combat and exploration',
+				paragraphs: [
+					'Blocking, perfect dodges, and sprint all pull stamina. Infinite stamina lets you learn boss patterns without snack breaks.',
+					'Swimming across the pond without drowning panic is another common reason.',
+					'Bundle with <a href="/blog/grounded-no-hunger-cheat/">no hunger</a> on <a href="/grounded-trainer/">trainer</a>.',
+				],
+			},
+			{
+				h2: 'Balance compared to god mode',
+				paragraphs: [
+					'You can still die — stamina alone does not block damage.',
+					'Good middle ground for co-op where god mode feels too much.',
+					'Defense: <a href="/grounded-god-mode/">god mode</a>, offense: <a href="/blog/grounded-super-damage/">super damage</a>.',
+				],
+			},
+			{
+				h2: 'Enable without other cheats',
+				paragraphs: [
+					'Solo mapping with stamina only keeps insects threatening.',
+					'Toggle off for boss training weeks.',
+					'More: <a href="/grounded-cheats/">cheats</a>, <a href="/blog/">blog</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-stealth-mode',
+		imageKey: IMAGE_KEYS[7],
+		published: dateForIndex(21),
+		updated: updatedFor(dateForIndex(21)),
+		category: 'Tips',
+		featured: false,
+		slug: 'grounded-stealth-mode-guide',
+		title: 'Grounded Stealth Mode: Sneak Past Spiders Quietly',
+		metaDescription:
+			'Grounded stealth mode cheat — reduce detection, silent movement, and pairing with ESP for safe yard routes.',
+		h1: 'Grounded Stealth Mode Cheat',
+		intro:
+			'Grounded stealth mode lowers insect aggro range so you slip past patrols — strong for resource runs at night.',
+		keywords: ['grounded stealth mode', 'grounded stealth cheat', 'grounded invisible cheat', 'grounded sneak cheat'],
+		imageAlt: 'Grounded stealth mode sneaking past a spider patrol',
+		sections: [
+			{
+				h2: 'What stealth cheats change',
+				paragraphs: [
+					'Detection radius, footstep noise, and sometimes player scent flags.',
+					'Stealth is not invisibility — run into a face and you still fight.',
+					'ESP on <a href="/features/">features</a> shows patrol paths; stealth reduces forced fights.',
+				],
+			},
+			{
+				h2: 'Stealth farming routes',
+				paragraphs: [
+					'Great for spider silk and berry runs without burning arrows.',
+					'Disable stealth when learning parry timing — you need aggro to practice.',
+					'Pair with <a href="/blog/grounded-noclip/">noclip</a> only for scouting, not main saves.',
+				],
+			},
+			{
+				h2: 'Multiplayer stealth',
+				paragraphs: [
+					'Host stealth rarely hides guests — stick to solo farming.',
+					'Enable on <a href="/grounded-mod-menu/">mod menu</a> player tab.',
+					'Updates: <a href="/updates/">updates</a>, hub: <a href="/grounded-cheats/">cheats</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-console-commands',
+		imageKey: IMAGE_KEYS[8],
+		published: dateForIndex(22),
+		updated: updatedFor(dateForIndex(22)),
+		category: 'Commands',
+		featured: false,
+		slug: 'grounded-console-commands',
+		title: 'Grounded Console Commands: What Retail PC Allows',
+		metaDescription:
+			'Grounded console commands guide — enable debug console, common commands, limits on retail, and trainer alternatives.',
+		h1: 'Grounded Console Commands',
+		intro:
+			'Grounded console commands exist in Unreal debug builds, but retail Steam and Game Pass players often need trainers instead.',
+		keywords: ['grounded console commands', 'grounded console', 'grounded command console', 'grounded cheat commands'],
+		imageAlt: 'Grounded debug console overlay on PC',
+		sections: [
+			{
+				h2: 'Retail vs debug console access',
+				paragraphs: [
+					`Some patches hide console behind config edits. Steps change — verify against current ${EXT.game} build notes.`,
+					'When console is blocked, <a href="/grounded-trainer/">trainer</a> toggles replicate most wishes.',
+					'Deep debug: <a href="/blog/grounded-debug-commands/">debug commands</a>.',
+				],
+			},
+			{
+				h2: 'Common command categories',
+				paragraphs: [
+					'Teleport, ghost, fly, and give-item style lines show up in community lists — many are dev-only.',
+					'Prefer trainer menus with labels instead of memorizing cryptic strings.',
+					'Spawn reference: <a href="/blog/grounded-spawn-items-command/">spawn items</a>.',
+				],
+			},
+			{
+				h2: 'Safety before you paste commands',
+				paragraphs: [
+					'Wrong commands soft-lock quests. Save first.',
+					'Console plus trainer double-inject can crash — pick one tool.',
+					'Full list mindset: <a href="/blog/grounded-all-cheats-list/">all cheats list</a>, <a href="/grounded-cheats/">cheats</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-item-ids',
+		imageKey: IMAGE_KEYS[9],
+		published: dateForIndex(23),
+		updated: updatedFor(dateForIndex(23)),
+		category: 'Commands',
+		featured: false,
+		slug: 'grounded-item-ids',
+		title: 'Grounded Item IDs: Reference for Spawns and Debug',
+		metaDescription:
+			'Grounded item IDs reference — weapons, armor, resources, and how to use IDs in spawn menus and debug commands.',
+		h1: 'Grounded Item IDs Reference',
+		intro:
+			'Grounded item IDs power spawn menus and debug give commands. Names you see in inventory rarely match internal strings.',
+		keywords: ['grounded item ids', 'grounded item id list', 'grounded spawn ids', 'grounded item codes'],
+		imageAlt: 'Grounded item ID list for weapons and armor spawns',
+		sections: [
+			{
+				h2: 'Internal names vs display names',
+				paragraphs: [
+					'Tier-two spider armor might be Item.Armor.Spider2Chest — not "Spider Chestplate."',
+					'Trainer spawn menus hide the ugly strings with icons — best for daily use.',
+					'Manual spawns: <a href="/blog/grounded-spawn-items-command/">spawn command</a> guide.',
+				],
+			},
+			{
+				h2: 'Categories to bookmark',
+				paragraphs: [
+					'Split lists: resources, consumables, weapons, armor, bugs, furniture.',
+					'Patch renames happen — date your list.',
+					'Unlimited stacks: <a href="/grounded-unlimited-items/">unlimited items</a>.',
+				],
+			},
+			{
+				h2: 'Avoiding corrupt spawns',
+				paragraphs: [
+					'Do not spawn unequippable quest objects into inventory.',
+					`Test on a sandbox save beside ${EXT.xbox} cloud backup.`,
+					'Trainer: <a href="/grounded-mod-menu/">mod menu</a>, <a href="/updates/">updates</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-debug-commands',
+		imageKey: IMAGE_KEYS[10],
+		published: dateForIndex(24),
+		updated: updatedFor(dateForIndex(24)),
+		category: 'Commands',
+		featured: false,
+		slug: 'grounded-debug-commands',
+		title: 'Grounded Debug Commands: Dev Tools on PC',
+		metaDescription:
+			'Grounded debug commands — ghost mode, teleport, give items, enabling steps, and when trainers are simpler.',
+		h1: 'Grounded Debug Commands',
+		intro:
+			'Grounded debug commands are leftover dev tools — powerful, poorly documented, and patch-sensitive on retail PC.',
+		keywords: ['grounded debug commands', 'grounded debug console', 'grounded dev commands', 'grounded ghost command'],
+		imageAlt: 'Grounded debug command entry during a test session',
+		sections: [
+			{
+				h2: 'Enabling debug on current builds',
+				paragraphs: [
+					'Config edits and launch flags rotate with updates. Search patch version plus "console unlock" before you edit INI files.',
+					'Back up configs. One typo breaks launch.',
+					'Easier path: <a href="/grounded-trainer-download/">trainer download</a>.',
+				],
+			},
+			{
+				h2: 'High-risk commands',
+				paragraphs: [
+					'Ghost, teleport, and destroy-all can brick saves.',
+					'Use debug for screenshots; use <a href="/grounded-mod-menu/">mod menu</a> for daily cheats.',
+					'Item lists: <a href="/blog/grounded-item-ids/">item IDs</a>.',
+				],
+			},
+			{
+				h2: 'Retail limits',
+				paragraphs: [
+					'Obsidian can strip commands without notice. Trainers adapt faster via <a href="/updates/">updates</a>.',
+					`Official info: ${EXT.game}.`,
+					'Overview: <a href="/blog/grounded-console-commands/">console commands</a>, <a href="/grounded-cheats/">cheats</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-all-cheats-list',
+		imageKey: IMAGE_KEYS[11],
+		published: dateForIndex(25),
+		updated: updatedFor(dateForIndex(25)),
+		category: 'Guides',
+		featured: true,
+		slug: 'grounded-all-cheats-list',
+		title: 'Grounded All Cheats List: Every Toggle Explained',
+		metaDescription:
+			'Grounded all cheats list — god mode, crafting, stamina, damage, fly, ESP, spawns, and commands in one reference.',
+		h1: 'Grounded All Cheats List',
+		intro:
+			'This grounded all cheats list groups every major toggle so you pick three features instead of enabling thirty and ruining the yard.',
+		keywords: ['grounded all cheats list', 'grounded cheats list', 'all grounded cheats', 'grounded cheat list 2026'],
+		imageAlt: 'Complete Grounded cheats list in a mod menu overlay',
+		sections: [
+			{
+				h2: 'Survival cheats',
+				paragraphs: [
+					'God mode, infinite health, no hunger, no thirst, infinite stamina, free crafting, unlock all recipes.',
+					'Best for building and exploration nights.',
+					'Links: <a href="/grounded-god-mode/">god mode</a>, <a href="/grounded-free-crafting/">free crafting</a>, <a href="/blog/grounded-no-hunger-cheat/">no hunger</a>.',
+				],
+			},
+			{
+				h2: 'Combat and movement cheats',
+				paragraphs: [
+					'Super damage, one hit kills, stealth, fly mode, noclip, super jump.',
+					'Use on sandbox saves first.',
+					'Guides: <a href="/blog/grounded-fly-mode-guide/">fly</a>, <a href="/blog/grounded-noclip/">noclip</a>, <a href="/blog/grounded-super-damage/">damage</a>.',
+				],
+			},
+			{
+				h2: 'Items, ESP, and commands',
+				paragraphs: [
+					'Unlimited items, spawn menus, player ESP, resource ESP, console and debug commands.',
+					'One license covers these on <a href="/grounded-cheats/">cheats</a> and <a href="/features/">features</a>.',
+					'Setup: <a href="/grounded-trainer-download/">download</a>, status: <a href="/updates/">updates</a>, more: <a href="/blog/">blog</a>.',
+				],
+			},
+		],
+	},
+	{
+		id: 'how-to-cheat-in-grounded',
+		imageKey: IMAGE_KEYS[12],
+		published: dateForIndex(26),
+		updated: updatedFor(dateForIndex(26)),
+		category: 'Guides',
+		featured: true,
+		slug: 'how-to-cheat-in-grounded',
+		title: 'How to Cheat in Grounded: Beginner Walkthrough',
+		metaDescription:
+			'How to cheat in Grounded on PC — pick a trainer, install safely, choose toggles, and avoid broken saves on Steam and Game Pass.',
+		h1: 'How to Cheat in Grounded',
+		intro:
+			'Learning how to cheat in Grounded is mostly setup discipline — right exe, one loader, a few toggles, and a backup save.',
+		keywords: ['how to cheat in grounded', 'how to cheat grounded', 'grounded cheating guide', 'grounded cheats tutorial'],
+		imageAlt: 'Beginner guide to cheating in Grounded on PC',
+		sections: [
+			{
+				h2: 'Step one: pick your tool',
+				paragraphs: [
+					'Choose a maintained trainer over random CE tables if you want patch support.',
+					'Compare <a href="/grounded-trainer/">trainer</a>, <a href="/grounded-mod-menu/">mod menu</a>, and <a href="/blog/best-grounded-trainer-2025/">best trainer</a> posts.',
+					'Buy on <a href="/pricing/">pricing</a> or test WeMod for basic toggles first.',
+				],
+			},
+			{
+				h2: 'Step two: install without stacking injectors',
+				paragraphs: [
+					'Close game, run loader as admin, attach, then launch.',
+					'Do not run two trainers plus CE together.',
+					'Full steps: <a href="/grounded-trainer-download/">trainer download</a>, fixes: <a href="/blog/grounded-cheats-not-working/">not working</a>.',
+				],
+			},
+			{
+				h2: 'Step three: start with three toggles',
+				paragraphs: [
+					'Try stamina, free crafting, or god mode — not all at once.',
+					'Keep a vanilla save for story.',
+					`Master list: <a href="/blog/grounded-all-cheats-list/">all cheats</a>, hub: <a href="/grounded-cheats/">cheats</a>, game info: ${EXT.game}.`,
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-cheats-not-working',
+		imageKey: IMAGE_KEYS[13],
+		published: dateForIndex(27),
+		updated: updatedFor(dateForIndex(27)),
+		category: 'Setup',
+		featured: false,
+		slug: 'grounded-cheats-not-working',
+		title: 'Grounded Cheats Not Working: Fix Attach and Toggles',
+		metaDescription:
+			'Grounded cheats not working — fix attach failures, Game Pass paths, antivirus blocks, and outdated trainers after patches.',
+		h1: 'Grounded Cheats Not Working? Fix It Here',
+		intro:
+			'When grounded cheats not working posts flood Discord, ninety percent are attach path, patch, or double-loader issues — not dead licenses.',
+		keywords: ['grounded cheats not working', 'grounded trainer not working', 'grounded cheat fix', 'grounded trainer failed'],
+		imageAlt: 'Troubleshooting Grounded trainer attach errors on PC',
+		sections: [
+			{
+				h2: 'Attach failed on launch',
+				paragraphs: [
+					'Wrong exe is the top cause — Game Pass vs Steam paths differ.',
+					'Run loader as admin after a full game exit, not just main menu.',
+					'Re-download from <a href="/grounded-trainer-download/">trainer download</a> if <a href="/updates/">updates</a> shipped a new build.',
+				],
+			},
+			{
+				h2: 'Toggles on but no effect',
+				paragraphs: [
+					'You might be in menu, not in-world. Load a save, wait for control, then toggle.',
+					'Some cheats need host on co-op saves.',
+					'Compare working features on <a href="/features/">features</a> — renamed toggles confuse people after UI skins.',
+				],
+			},
+			{
+				h2: 'Antivirus and patch day',
+				paragraphs: [
+					'Defender quarantine looks like a broken cheat. Restore with vendor hash if provided.',
+					'Patch day: wait for status green before blaming your PC.',
+					'Still stuck? <a href="/grounded-trainer/">trainer</a> support with order ID, Windows version, and Game Pass vs Steam.',
+				],
+			},
+		],
+	},
+	{
+		id: 'best-grounded-trainer-2025',
+		imageKey: IMAGE_KEYS[0],
+		published: dateForIndex(28),
+		updated: updatedFor(dateForIndex(28)),
+		category: 'Trainer',
+		featured: true,
+		slug: 'best-grounded-trainer-2025',
+		title: 'Best Grounded Trainer 2025: What to Look For',
+		metaDescription:
+			'Best grounded trainer 2025 — features, patch support, Game Pass paths, mod menu quality, and pricing compared for PC.',
+		h1: 'Best Grounded Trainer 2025',
+		intro:
+			'The best grounded trainer 2025 is not the flashiest banner — it is the one that rebuilds after Obsidian patches and documents Game Pass paths.',
+		keywords: ['best grounded trainer 2025', 'best grounded trainer', 'grounded trainer review 2025', 'top grounded trainer'],
+		imageAlt: 'Best Grounded trainer comparison for PC players in 2025',
+		sections: [
+			{
+				h2: 'Checklist before you pay',
+				paragraphs: [
+					'Dated status page, Steam and Game Pass support, mod menu with ESP and spawns, clear refund or support policy.',
+					'Free fling trainers fail the patch test — see <a href="/blog/grounded-fling-trainer-review/">fling review</a>.',
+					'WeMod works for basics — see <a href="/blog/grounded-wemod-alternatives/">WeMod alternatives</a>.',
+				],
+			},
+			{
+				h2: 'Features that matter in 2025',
+				paragraphs: [
+					'God mode, free crafting, stamina, damage sliders, fly, ESP, and searchable spawns cover ninety percent of searches.',
+					'Full stack on <a href="/features/">features</a> and <a href="/grounded-mod-menu/">mod menu</a>.',
+					'Pricing: <a href="/pricing/">pricing</a> vs hours lost to broken free tools.',
+				],
+			},
+			{
+				h2: 'Our recommendation',
+				paragraphs: [
+					`Grounded Cheats targets ${EXT.game} PC with rebuild notes on <a href="/updates/">updates</a>.`,
+					'Start <a href="/grounded-trainer/">trainer</a> or <a href="/grounded-cheats/">cheats</a> pillar, then <a href="/grounded-trainer-download/">download</a>.',
+					'New here? Read <a href="/blog/how-to-cheat-in-grounded/">how to cheat</a> first.',
+				],
+			},
+		],
+	},
+	{
+		id: 'grounded-steam-xbox-cheats',
+		imageKey: IMAGE_KEYS[1],
+		published: dateForIndex(29),
+		updated: updatedFor(dateForIndex(29)),
+		category: 'Setup',
+		featured: false,
+		slug: 'grounded-steam-xbox-cheats',
+		title: 'Grounded Steam Cheats and Xbox Game Pass on PC',
+		metaDescription:
+			'Grounded Steam cheats and Xbox Game Pass PC cheats — path differences, attach steps, and console limits explained.',
+		h1: 'Grounded Steam Cheats vs Xbox Game Pass PC',
+		intro:
+			'Grounded steam cheats and grounded xbox game pass cheats share the same PC binary on Windows — but install folders and cloud saves differ.',
+		keywords: [
+			'grounded steam cheats',
+			'grounded xbox game pass cheats',
+			'grounded game pass cheats pc',
+			'grounded xbox cheats',
+		],
+		imageAlt: 'Grounded Steam and Xbox Game Pass cheat setup on Windows',
+		sections: [
+			{
+				h2: 'Steam install paths',
+				paragraphs: [
+					'Steam library → Grounded → Browse local files → Grounded.exe. Easy attach for most trainers.',
+					'Steam Cloud saves survive reinstall — back up before heavy spawn tests.',
+					'Setup: <a href="/grounded-trainer-download/">download</a>, <a href="/grounded-cheats/">cheats</a>.',
+				],
+			},
+			{
+				h2: 'Xbox Game Pass on PC',
+				paragraphs: [
+					`${EXT.xbox} installs under WindowsApps unless you moved it. Trainers need the vendor Game Pass path guide.`,
+					'Xbox cloud sync can restore pre-cheat saves if you experiment on a copy.',
+					'Same toggles as Steam — god mode, crafting, ESP — on <a href="/features/">features</a>.',
+				],
+			},
+			{
+				h2: 'Console Xbox limitations',
+				paragraphs: [
+					'Console Xbox cannot load PC trainers. Phone searches for "xbox cheats" usually mean Game Pass PC.',
+					'Play anywhere saves may cross — cheat on PC, play clean on console if you separate slots.',
+					`Official: ${EXT.game} and ${EXT.xbox}. Status: <a href="/updates/">updates</a>, guides: <a href="/blog/">blog</a>.`,
+				],
+			},
+		],
+	},
+];
+
+function translationBlock(src) {
+	const sections = src.sections
+		.map(
+			(s) => `			{
+				h2: ${JSON.stringify(s.h2)},
+				paragraphs: [
+${s.paragraphs.map((p) => `					${JSON.stringify(p)},`).join('\n')}
+				],
+			}`,
+		)
+		.join(',\n');
+
+	return `{
+		slug: ${JSON.stringify(src.slug)},
+		title: ${JSON.stringify(src.title)},
+		metaDescription: ${JSON.stringify(src.metaDescription)},
+		h1: ${JSON.stringify(src.h1)},
+		intro: ${JSON.stringify(src.intro)},
+		keywords: ${JSON.stringify(src.keywords)},
+		imageAlt: ${JSON.stringify(src.imageAlt)},
+		sections: [
+${sections}
+		],
+	}`;
+}
+
+function buildPost(src, index) {
+	const imageKey = `blog${String(index + 1).padStart(2, '0')}`;
+	const translations = LOCALES.map((code) => `\t\t${code}: ${translationBlock(src)},`).join('\n');
+	return `	{
+		id: ${JSON.stringify(src.id)},
+		imageKey: ${JSON.stringify(imageKey)},
+		published: ${JSON.stringify(src.published)},
+		updated: ${JSON.stringify(src.updated)},
+		category: ${JSON.stringify(src.category)},
+		featured: ${src.featured ? 'true' : 'false'},
+		translations: {
+${translations}
+		},
+	}`;
+}
+
+const file = `/* Auto-generated by scripts/generate-grounded-blog-posts.mjs — do not edit by hand. */
+import type { BlogPostDefinition } from './types';
+
+export const blogPosts: BlogPostDefinition[] = [
+${sources.map((src, index) => buildPost(src, index)).join(',\n')}
+];
+`;
+
+writeFileSync(OUT, file);
+console.log(`Wrote ${sources.length} Grounded blog posts → ${OUT}`);

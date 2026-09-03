@@ -1,0 +1,47 @@
+import { siteConfig } from './site';
+
+/** Screenshots used across product pages — grounded cheats keyword alts. */
+export const groundedImages = {
+	hero: '/images/grounded-cheats-hero-full.png',
+	espWallhack: '/images/grounded-cheats-wallhack.webp',
+	aimbotCombat: '/images/grounded-cheats-aimbot.webp',
+	aimbotSkeleton: '/images/grounded-cheats-aimbot-view.webp',
+	playerEsp: '/images/grounded-cheats-radar.webp',
+	cheatsCombat: '/images/grounded-cheats-raid.webp',
+	logo: siteConfig.logo,
+	cover: '/images/grounded-cheats-raid.webp',
+	loadoutBuilder: '/images/grounded-cheats-radar.webp',
+	squadFight: '/images/grounded-cheats-aimbot-view.webp',
+	cheatsPackage: '/images/grounded-cheats-radar.webp',
+	headerArt: '/images/grounded-cheats-aimbot-view.webp',
+	battleRoyaleCombat: '/images/grounded-cheats-raid.webp',
+	extractFight: '/images/grounded-cheats-aimbot.webp',
+	rebootFight: '/images/grounded-cheats-aimbot.webp',
+	scavRunCombat: '/images/grounded-cheats-wallhack.webp',
+	scavRunMode: '/images/grounded-cheats-esp.webp',
+	battleRoyaleIsland: '/images/grounded-cheats-esp.webp',
+	raidMap: '/images/grounded-cheats-esp.webp',
+	product: [
+		{ src: '/images/grounded-cheats-esp.webp', alt: 'Grounded trainer mod menu with god mode toggles' },
+		{ src: '/images/grounded-cheats-wallhack.webp', alt: 'Grounded god mode infinite health in backyard combat' },
+		{ src: '/images/grounded-cheats-aimbot.webp', alt: 'Grounded free crafting and unlimited items trainer' },
+		{ src: '/images/grounded-cheats-esp.webp', alt: 'Grounded item spawner and resource markers' },
+		{ src: '/images/grounded-cheats-wallhack.webp', alt: 'Grounded super damage against insects' },
+		{ src: '/images/grounded-cheats-aimbot.webp', alt: 'Grounded mod menu trainer settings' },
+	],
+	gallery: [
+		{ src: '/images/grounded-cheats-esp.webp', alt: 'Grounded trainer overlay with god mode active', featured: true },
+		{ src: '/images/grounded-cheats-wallhack.webp', alt: 'Grounded infinite health in spider fight' },
+		{ src: '/images/grounded-cheats-aimbot.webp', alt: 'Grounded free crafting mod menu' },
+		{ src: '/images/grounded-cheats-esp.webp', alt: 'Grounded unlimited items spawn menu' },
+		{ src: '/images/grounded-cheats-wallhack.webp', alt: 'Grounded noclip and fly mode trainer' },
+	],
+	sitemap: [
+		{ src: '/images/grounded-cheats-esp.webp', title: '', caption: '' },
+		{ src: '/images/grounded-cheats-wallhack.webp', title: '', caption: '' },
+		{ src: '/images/grounded-cheats-aimbot.webp', title: '', caption: '' },
+		{ src: '/images/grounded-cheats-aimbot-view.webp', title: '', caption: '' },
+		{ src: '/images/grounded-cheats-radar.webp', title: '', caption: '' },
+		{ src: '/images/grounded-cheats-raid.webp', title: '', caption: '' },
+	],
+} as const;

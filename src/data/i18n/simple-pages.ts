@@ -48,28 +48,28 @@ export const simplePageCopy: Partial<Record<PageId, SimplePageCopy>> = {
 		galleryTitle: 'In-game look',
 		sections: [
 			{
-				h2: 'ESP & wallhack',
+				h2: 'God mode & infinite health',
 				paragraphs: [
-					'See PMCs, Scavs, bosses, and loot through walls with distance readouts.',
-					'Use filters so the overlay stays clear in dorms, Factory, and scav-run chaos.',
+					'Toggle god mode and infinite health to survive any insect attack in the backyard.',
+					'No hunger, no thirst, and unlimited stamina keep you exploring without resource pressure.',
 				],
-				list: ['Player boxes & distance', 'Loot and extract markers', 'Boss and Scav filters'],
+				list: ['God mode / no hit', 'Infinite health & stamina', 'No hunger or thirst'],
 			},
 			{
-				h2: 'Aimbot & soft aim',
+				h2: 'Free crafting & unlimited items',
 				paragraphs: [
-					'Aim help you can tune to feel natural.',
-					'Set FOV, smoothness, and bone priority per weapon before you raid.',
+					'Craft anything without gathering materials. Unlock all recipes instantly.',
+					'Set item amounts, max stack size, and auto-pickup for fast base building.',
 				],
-				list: ['Smooth aim strength', 'FOV and bone priority', 'Hotkeys mid-match'],
+				list: ['Free crafting', 'Unlock all recipes', 'Unlimited items & auto pickup'],
 			},
 			{
-				h2: 'Radar',
+				h2: 'Mod menu & trainer controls',
 				paragraphs: [
-					'A simple 2D radar for threats outside your view.',
-					'Spot flanks near extracts without filling the whole screen.',
+					'A clean mod menu with hotkeys for every cheat toggle.',
+					'Noclip, fly mode, super damage, and stealth mode for full backyard control.',
 				],
-				list: ['Nearby enemy cues', 'Adjustable range', 'Works in PMC & Scav'],
+				list: ['Noclip & fly mode', 'Super damage / one hit kills', 'Stealth mode'],
 			},
 			{
 				h2: 'Updates & support',
@@ -95,9 +95,9 @@ export const simplePageCopy: Partial<Record<PageId, SimplePageCopy>> = {
 				h2: 'What you get',
 				paragraphs: [
 					'Full package access for Windows 10 / 11.',
-					'Same ESP, soft aim, and radar on monthly and lifetime plans.',
+					'Same ESP, trainer controls, and radar on monthly and lifetime plans.',
 				],
-				list: ['ESP, aimbot, and radar', 'Patch rebuilds while active', 'Digital delivery after checkout'],
+				list: ['ESP, trainer, and radar', 'Patch rebuilds while active', 'Digital delivery after checkout'],
 			},
 			{
 				h2: 'Plans',
@@ -124,18 +124,18 @@ export const simplePageCopy: Partial<Record<PageId, SimplePageCopy>> = {
 		h1: 'Status',
 		intro: brandCopy.statusIntro,
 		ctaPrimary: brandCopy.ctaBuy,
-		ctaSecondary: 'Tarkov Cheats overview',
-		ctaSecondaryHref: '/tarkov-cheats/',
+		ctaSecondary: 'Grounded Cheats overview',
+		ctaSecondaryHref: '/grounded-cheats/',
 		galleryTitle: 'In-game look',
 		sections: [
 			{
 				h2: 'Current status',
 				paragraphs: [
-					'As of 13 Aug 2026 the package is online for Escape from Tarkov on Windows PC. We post a new note here when a game or BattlEye patch needs a rebuild.',
-					'If Status is green, you can raid. If we are rebuilding, wait for the next note.',
+					'As of 13 Aug 2026 the package is online for Grounded on Windows PC. We post a new note here when a game or Easy Anti-Cheat patch needs a rebuild.',
+					'If Status is green, you can session. If we are rebuilding, wait for the next note.',
 				],
 				list: [
-					'Check this page before every raid after a patch',
+					'Check this page before every session after a patch',
 					'Monthly and lifetime licenses get rebuilds while active',
 					'No cheat stays undetected forever — status first, then play',
 				],
@@ -157,34 +157,34 @@ export const simplePageCopy: Partial<Record<PageId, SimplePageCopy>> = {
 	hacks: page({
 		title: brandSeo.previewTitle,
 		description: brandSeo.previewDescription,
-		h1: 'Tarkov Cheats',
+		h1: 'Grounded Cheats',
 		intro: brandCopy.previewIntro,
 		ctaPrimary: brandCopy.ctaBuy,
 		ctaSecondary: 'View features',
 		ctaSecondaryHref: '/features/',
-		galleryTitle: 'In-raid look',
+		galleryTitle: 'In-session look',
 		sections: [
 			{
 				h2: 'What you get',
 				paragraphs: [
-					'One license for Escape from Tarkov on Windows PC — built for PMC raids and Scav runs.',
+					'One license for Grounded on Windows PC — built for solo survival and co-op sessions.',
 				],
 				list: [
-					'ESP / wallhack with distance',
-					'Soft aim & aimbot profiles',
-					'2D radar for flanks',
-					'BattlEye rebuilds after patches',
+					'ESP / god mode with distance',
+					'Trainer controls & trainer profiles',
+					'item spawner for flanks',
+					'Easy Anti-Cheat rebuilds after patches',
 				],
 			},
 			{
-				h2: 'Built for Tarkov raids',
+				h2: 'Built for Grounded sessions',
 				paragraphs: [
-					'Read PMCs and Scavs before you push, mark loot worth the risk, and stay aware near extracts. Tune soft aim per weapon class for dorms, Factory, and long-range maps.',
+					'Read players and insects before you push, mark loot worth the risk, and stay aware near base camps. Tune trainer controls per weapon class for dorms, Factory, and long-range maps.',
 				],
 				list: [
-					'<a href="/tarkov-esp/">ESP guide</a>',
-					'<a href="/tarkov-aimbot/">Aimbot controls</a>',
-					'<a href="/tarkov-radar-hack/">Radar overlay</a>',
+					'<a href="/grounded-god-mode/">ESP guide</a>',
+					'<a href="/grounded-trainer/">Trainer controls</a>',
+					'<a href="/grounded-free-crafting/">Radar overlay</a>',
 					'<a href="/updates/">Live status</a>',
 				],
 			},
@@ -199,20 +199,20 @@ export const simplePageCopy: Partial<Record<PageId, SimplePageCopy>> = {
 			},
 		],
 	}),
-	'tarkov-esp': page({
-		title: 'Tarkov ESP | {brand}',
+	'grounded-god-mode': page({
+		title: 'Grounded ESP | {brand}',
 		description:
-			'Tarkov ESP and wallhack for Escape from Tarkov on Windows PC — player boxes, distance, loot filters, and clear overlays in raids.',
+			'Grounded ESP and god mode for Grounded on Windows PC — player boxes, distance, loot filters, and clear overlays in sessions.',
 		h1: 'ESP',
-		intro: 'See players and loot through walls during Tarkov raids. Part of the same {brand} license.',
+		intro: 'See players and loot through walls during Grounded sessions. Part of the same {brand} license.',
 		ctaPrimary: brandCopy.ctaBuy,
-		ctaSecondary: 'Tarkov Cheats overview',
-		ctaSecondaryHref: '/tarkov-cheats/',
-		galleryTitle: 'ESP in raid',
+		ctaSecondary: 'Grounded Cheats overview',
+		ctaSecondaryHref: '/grounded-cheats/',
+		galleryTitle: 'ESP in session',
 		sections: [
 			{
 				h2: 'What ESP shows',
-				paragraphs: ['Boxes, distance, and filters for PMCs, Scavs, bosses, and loot.'],
+				paragraphs: ['Boxes, distance, and filters for players, insects, bosses, and loot.'],
 				list: ['Player ESP', 'Loot markers', 'Boss and Scav filters'],
 			},
 			{
@@ -222,41 +222,41 @@ export const simplePageCopy: Partial<Record<PageId, SimplePageCopy>> = {
 			},
 			{
 				h2: 'Next steps',
-				paragraphs: ['ESP is included with aimbot and radar in one plan.'],
+				paragraphs: ['ESP is included with trainer and radar in one plan.'],
 				list: [
-					'<a href="/tarkov-cheats/">Full product</a>',
+					'<a href="/grounded-cheats/">Full product</a>',
 					'<a href="/features/">All features</a>',
 					'<a href="/pricing/">Store</a>',
 				],
 			},
 		],
 	}),
-	'tarkov-aimbot': page({
-		title: 'Tarkov Aimbot | {brand}',
+	'grounded-trainer': page({
+		title: 'Grounded Trainer | {brand}',
 		description:
-			'Tarkov aimbot and soft aim for Escape from Tarkov on Windows PC — FOV, smoothness, and bone priority you can tune per weapon.',
-		h1: 'Aimbot',
-		intro: 'Soft aim and aim assist you can tune for Tarkov. Included in the same {brand} license.',
+			'Grounded trainer and trainer controls for Grounded on Windows PC — FOV, smoothness, and bone priority you can tune per weapon.',
+		h1: 'Trainer',
+		intro: 'Trainer controls and aim assist you can tune for Grounded. Included in the same {brand} license.',
 		ctaPrimary: brandCopy.ctaBuy,
-		ctaSecondary: 'Tarkov Cheats overview',
-		ctaSecondaryHref: '/tarkov-cheats/',
-		galleryTitle: 'Aimbot view',
+		ctaSecondary: 'Grounded Cheats overview',
+		ctaSecondaryHref: '/grounded-cheats/',
+		galleryTitle: 'Trainer view',
 		sections: [
 			{
 				h2: 'Controls',
-				paragraphs: ['Set FOV, smoothness, and bone priority before you raid.'],
-				list: ['Soft aim strength', 'Bone priority', 'Hotkeys mid-match'],
+				paragraphs: ['Set FOV, smoothness, and bone priority before you session.'],
+				list: ['Trainer controls strength', 'Bone priority', 'Hotkeys mid-match'],
 			},
 			{
 				h2: 'Play styles',
 				paragraphs: ['Keep settings subtle for longer sessions. Raise strength only when you accept more risk.'],
-				list: ['Legit soft aim', 'Per-weapon profiles', 'Works with ESP'],
+				list: ['Legit trainer controls', 'Per-weapon profiles', 'Works with ESP'],
 			},
 			{
 				h2: 'Next steps',
-				paragraphs: ['Aimbot ships with ESP and radar in one license.'],
+				paragraphs: ['Trainer ships with ESP and radar in one license.'],
 				list: [
-					'<a href="/tarkov-cheats/">Full product</a>',
+					'<a href="/grounded-cheats/">Full product</a>',
 					'<a href="/features/">All features</a>',
 					'<a href="/pricing/">Store</a>',
 				],
@@ -264,27 +264,27 @@ export const simplePageCopy: Partial<Record<PageId, SimplePageCopy>> = {
 		],
 	}),
 	radar: page({
-		title: 'Tarkov Radar | {brand}',
+		title: 'Grounded Radar | {brand}',
 		description:
-			'Tarkov 2D radar for Escape from Tarkov on Windows PC — flank cues near extracts without filling the whole screen.',
+			'Grounded item spawner for Grounded on Windows PC — flank cues near base camps without filling the whole screen.',
 		h1: 'Radar',
-		intro: 'A simple 2D radar for threats outside your view. Included in the same {brand} license.',
+		intro: 'A simple item spawner for threats outside your view. Included in the same {brand} license.',
 		ctaPrimary: brandCopy.ctaBuy,
-		ctaSecondary: 'Tarkov Cheats overview',
-		ctaSecondaryHref: '/tarkov-cheats/',
+		ctaSecondary: 'Grounded Cheats overview',
+		ctaSecondaryHref: '/grounded-cheats/',
 		galleryTitle: 'Radar overlay',
 		sections: [
 			{
 				h2: 'What it shows',
-				paragraphs: ['Nearby enemy cues with adjustable range for PMC and Scav runs.'],
+				paragraphs: ['Nearby enemy cues with adjustable range for PMC and co-op sessions.'],
 				list: ['Flank awareness', 'Extract approaches', 'Adjustable range'],
 			},
 			{
 				h2: 'With ESP',
 				paragraphs: ['Use radar for threats you cannot see yet. Use ESP when you push.'],
 				list: [
-					'<a href="/tarkov-esp/">ESP guide</a>',
-					'<a href="/tarkov-cheats/">Full product</a>',
+					'<a href="/grounded-god-mode/">ESP guide</a>',
+					'<a href="/grounded-cheats/">Full product</a>',
 					'<a href="/pricing/">Store</a>',
 				],
 			},

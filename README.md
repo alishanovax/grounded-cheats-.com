@@ -1,6 +1,6 @@
-# Tarkov Cheats — Marketing Site
+# Grounded Cheats — Marketing Site
 
-Static Astro 7 site for [tarkovcheats.org](https://tarkovcheats.org). Primary SEO keyword: **tarkov cheats** (secondary: escape from tarkov cheats, aimbot, ESP).
+Static Astro 7 site for [groundedcheats.com](https://groundedcheats.com). Primary SEO keyword: **grounded cheats** (secondary: escape from grounded cheats, trainer, ESP).
 
 ## Stack
 
@@ -13,7 +13,7 @@ Static Astro 7 site for [tarkovcheats.org](https://tarkovcheats.org). Primary SE
 ```bash
 npm install
 npm run generate:i18n   # after editing scripts/i18n-data/*
-node scripts/generate-blog-posts.mjs
+node scripts/generate-grounded-blog-posts.mjs
 npm run dev
 ```
 
@@ -25,11 +25,11 @@ npm run build:validate
 
 ## Deploy (Cloudflare Pages)
 
-1. Create a Cloudflare Pages project named **besttarkovcheats**
+1. Create a Cloudflare Pages project named **bestgroundedcheats**
 2. Connect this repo or upload `dist/` after `npm run build`
 3. Build command: `npm run build`
 4. Output directory: `dist`
-5. Add custom domain **tarkovcheats.org** (apex) and redirect **www** → apex
+5. Add custom domain **groundedcheats.com** (apex) and redirect **www** → apex
 6. Enable SSL **Always Use HTTPS**
 
 CLI deploy:
@@ -41,8 +41,8 @@ npm run pages:deploy
 ## Environment
 
 - Node.js >= 22.12.0
-- Checkout URL: Zadeyo Tarkov product (`siteConfig.checkoutUrl` in `src/data/site.ts`)
+- Checkout URL: Zadeyo Grounded product (`siteConfig.checkoutUrl` in `src/data/site.ts`)
 
 ## License
 
-Private — for tarkovcheats.org deployment only.
+Private — for groundedcheats.com deployment only.

@@ -2,10 +2,10 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 
 const SIMPLE =
-	"images: { hero: 'tarkov cheats', espWallhack: 'tarkov cheats wallhack', aimbotCombat: 'tarkov cheats aimbot', squadFight: 'tarkov cheats', playerEsp: 'tarkov cheats esp', headerArt: 'tarkov cheats aimbot', cheatsPackage: 'tarkov cheats radar', rebootFight: 'tarkov cheats aimbot', battleRoyale: 'tarkov cheats', battleRoyaleIsland: 'tarkov cheats esp' }";
+	"images: { hero: 'grounded cheats', espGod mode: 'grounded cheats god mode', trainerCombat: 'grounded cheats trainer', squadFight: 'grounded cheats', playerEsp: 'grounded cheats esp', headerArt: 'grounded cheats trainer', cheatsPackage: 'grounded cheats radar', rebootFight: 'grounded cheats trainer', battleRoyale: 'grounded cheats', battleRoyaleIsland: 'grounded cheats esp' }";
 
 const re =
-	/images: \{ hero: '[^']+', espWallhack: '[^']+', aimbotCombat: '[^']+', squadFight: '[^']+', playerEsp: '[^']+', headerArt: '[^']+', cheatsPackage: '[^']+', rebootFight: '[^']+', battleRoyale: '[^']+', battleRoyaleIsland: '[^']+' \}/g;
+	/images: \{ hero: '[^']+', espGod mode: '[^']+', trainerCombat: '[^']+', squadFight: '[^']+', playerEsp: '[^']+', headerArt: '[^']+', cheatsPackage: '[^']+', rebootFight: '[^']+', battleRoyale: '[^']+', battleRoyaleIsland: '[^']+' \}/g;
 
 for (const f of ['scripts/i18n-data/ui-strings-part1.mjs', 'scripts/i18n-data/ui-strings-part2.mjs']) {
 	const c = readFileSync(f, 'utf8');
@@ -15,30 +15,30 @@ for (const f of ['scripts/i18n-data/ui-strings-part1.mjs', 'scripts/i18n-data/ui
 }
 
 const altMap = [
-	["imageAlt: 'Tarkov ESP player tags hack'", "imageAlt: 'tarkov cheats esp'"],
-	["imageAlt: 'Tarkov ESP radar hack'", "imageAlt: 'tarkov cheats radar'"],
-	["imageAlt: 'Tarkov aimbot sniper kill'", "imageAlt: 'tarkov cheats aimbot'"],
-	["imageAlt: 'Tarkov aimbot skeleton targeting'", "imageAlt: 'tarkov cheats aimbot'"],
-	["imageAlt: 'Tarkov cheats ADS combat'", "imageAlt: 'tarkov cheats'"],
-	["imageAlt: 'Tarkov cheats setup PC activation'", "imageAlt: 'tarkov cheats'"],
-	["imageAlt: 'Tarkov cheats updates BattlEye maintenance'", "imageAlt: 'tarkov cheats'"],
-	["imageAlt: 'Tarkov cheats FAQ ESP aimbot'", "imageAlt: 'tarkov cheats'"],
-	["imageAlt: 'Tarkov cheats support license help'", "imageAlt: 'tarkov cheats'"],
-	["imageAlt: 'Undetected tarkov cheats ESP wallhack'", "imageAlt: 'undetected tarkov cheats'"],
-	["imageAlt: 'Tarkov wallhack skeleton ESP'", "imageAlt: 'tarkov cheats wallhack'"],
-	["imageAlt: 'BattlEye bypass tarkov ESP aimbot'", "imageAlt: 'tarkov cheats battleye'"],
-	["imageAlt: 'Tarkov cheats 2026 ESP aimbot'", "imageAlt: 'tarkov cheats'"],
-	["imageAlt: 'Tarkov cheats combat aimbot'", "imageAlt: 'tarkov cheats'"],
-	["imageAlt: 'Tarkov cheat download ESP aimbot'", "imageAlt: 'tarkov cheats download'"],
-	["imageAlt: 'Tarkov mod menu ESP aimbot'", "imageAlt: 'tarkov cheats mod menu'"],
-	["imageAlt: 'Tarkov soft aim aimbot settings'", "imageAlt: 'tarkov cheats soft aim'"],
-	["imageAlt: 'Best tarkov cheats 2026 ESP'", "imageAlt: 'best tarkov cheats'"],
-	["imageAlt: 'Tarkov aimbot hack combat'", "imageAlt: 'tarkov cheats aimbot'"],
-	["imageAlt: 'Tarkov ESP hack wallhack'", "imageAlt: 'tarkov cheats esp'"],
-	["imageAlt: 'Tarkov unlock all ESP aimbot guide'", "imageAlt: 'tarkov cheats'"],
-	["imageAlt: 'Tarkov cheats privacy policy'", "imageAlt: 'tarkov cheats'"],
-	["imageAlt: 'Tarkov cheats refund policy'", "imageAlt: 'tarkov cheats'"],
-	["imageAlt: 'Tarkov cheats terms of use'", "imageAlt: 'tarkov cheats'"],
+	["imageAlt: 'Grounded ESP player tags hack'", "imageAlt: 'grounded cheats esp'"],
+	["imageAlt: 'Grounded ESP free crafting'", "imageAlt: 'grounded cheats radar'"],
+	["imageAlt: 'Grounded trainer sniper kill'", "imageAlt: 'grounded cheats trainer'"],
+	["imageAlt: 'Grounded trainer skeleton targeting'", "imageAlt: 'grounded cheats trainer'"],
+	["imageAlt: 'Grounded cheats ADS combat'", "imageAlt: 'grounded cheats'"],
+	["imageAlt: 'Grounded cheats setup PC activation'", "imageAlt: 'grounded cheats'"],
+	["imageAlt: 'Grounded cheats updates Easy Anti-Cheat maintenance'", "imageAlt: 'grounded cheats'"],
+	["imageAlt: 'Grounded cheats FAQ ESP trainer'", "imageAlt: 'grounded cheats'"],
+	["imageAlt: 'Grounded cheats support license help'", "imageAlt: 'grounded cheats'"],
+	["imageAlt: 'Undetected grounded cheats ESP god mode'", "imageAlt: 'undetected grounded cheats'"],
+	["imageAlt: 'Grounded god mode skeleton ESP'", "imageAlt: 'grounded cheats god mode'"],
+	["imageAlt: 'Easy Anti-Cheat bypass grounded ESP trainer'", "imageAlt: 'grounded cheats easy-anti-cheat'"],
+	["imageAlt: 'Grounded cheats 2026 ESP trainer'", "imageAlt: 'grounded cheats'"],
+	["imageAlt: 'Grounded cheats combat trainer'", "imageAlt: 'grounded cheats'"],
+	["imageAlt: 'Grounded cheat download ESP trainer'", "imageAlt: 'grounded cheats download'"],
+	["imageAlt: 'Grounded mod menu ESP trainer'", "imageAlt: 'grounded cheats mod menu'"],
+	["imageAlt: 'Grounded trainer controls trainer settings'", "imageAlt: 'grounded cheats trainer controls'"],
+	["imageAlt: 'Best grounded cheats 2026 ESP'", "imageAlt: 'best grounded cheats'"],
+	["imageAlt: 'Grounded trainer hack combat'", "imageAlt: 'grounded cheats trainer'"],
+	["imageAlt: 'Grounded ESP hack god mode'", "imageAlt: 'grounded cheats esp'"],
+	["imageAlt: 'Grounded unlock all ESP trainer guide'", "imageAlt: 'grounded cheats'"],
+	["imageAlt: 'Grounded cheats privacy policy'", "imageAlt: 'grounded cheats'"],
+	["imageAlt: 'Grounded cheats refund policy'", "imageAlt: 'grounded cheats'"],
+	["imageAlt: 'Grounded cheats terms of use'", "imageAlt: 'grounded cheats'"],
 ];
 
 let pages = readFileSync('scripts/i18n-data/pages-en.mjs', 'utf8');
@@ -49,13 +49,13 @@ console.log('pages-en imageAlts simplified');
 // productPage() imageAlt template in pages-i18n
 let i18n = readFileSync('scripts/i18n-data/pages-i18n.mjs', 'utf8');
 i18n = i18n
-	.split("imageAlt: `Tarkov ${meta.altKeyword}`")
-	.join("imageAlt: 'tarkov cheats'")
-	.split("galleryTitle: `Tarkov Cheats ${topicName}`")
-	.join("galleryTitle: 'tarkov cheats'")
-	.split("imageAlt: `Tarkov cheats ${kind} policy`")
-	.join("imageAlt: 'tarkov cheats'")
-	.split("galleryTitle: `Tarkov Cheats ${kind} resources`")
-	.join("galleryTitle: 'tarkov cheats'");
+	.split("imageAlt: `Grounded ${meta.altKeyword}`")
+	.join("imageAlt: 'grounded cheats'")
+	.split("galleryTitle: `Grounded Cheats ${topicName}`")
+	.join("galleryTitle: 'grounded cheats'")
+	.split("imageAlt: `Grounded cheats ${kind} policy`")
+	.join("imageAlt: 'grounded cheats'")
+	.split("galleryTitle: `Grounded Cheats ${kind} resources`")
+	.join("galleryTitle: 'grounded cheats'");
 writeFileSync('scripts/i18n-data/pages-i18n.mjs', i18n);
 console.log('pages-i18n image alts simplified');

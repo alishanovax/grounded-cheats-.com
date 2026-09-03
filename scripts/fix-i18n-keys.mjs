@@ -8,34 +8,34 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = path.resolve(ROOT, '..', 'amansand');
 
 const UI_REPLACEMENTS = [
-	['Tarkov Cheats', 'Tarkov Cheats'],
-	['Tarkov cheats', 'Tarkov cheats'],
-	['Tarkov Cheats', 'Tarkov Cheats'],
-	['Escape from Tarkov', 'Escape from Tarkov'],
-	['Escape from Tarkov', 'Escape from Tarkov'],
-	['Call of Duty', 'Escape from Tarkov'],
-	['Tarkov PC', 'Escape from Tarkov PC'],
-	['for Tarkov', 'for Escape from Tarkov'],
-	['Tarkov ', 'Escape from Tarkov '],
-	['tarkov ', 'tarkov '],
-	['BattlEye maintenance', 'BattlEye maintenance'],
-	['BattlEye anti-cheat', 'BattlEye anti-cheat'],
-	['BattlEye', 'BattlEye anti-cheat'],
+	['Grounded Cheats', 'Grounded Cheats'],
+	['Grounded cheats', 'Grounded cheats'],
+	['Grounded Cheats', 'Grounded Cheats'],
+	['Grounded', 'Grounded'],
+	['Grounded', 'Grounded'],
+	['Call of Duty', 'Grounded'],
+	['Grounded PC', 'Grounded PC'],
+	['for Grounded', 'for Grounded'],
+	['Grounded ', 'Grounded '],
+	['grounded ', 'grounded '],
+	['Easy Anti-Cheat maintenance', 'Easy Anti-Cheat maintenance'],
+	['Easy Anti-Cheat', 'Easy Anti-Cheat'],
+	['Easy Anti-Cheat', 'Easy Anti-Cheat'],
 	['operatorEsp', 'playerEsp'],
-	['extractFight', 'rebootFight'],
+	['base campFight', 'rebootFight'],
 	['alMazrah', 'battleRoyaleIsland'],
-	['PMCs', 'players'],
+	['players', 'players'],
 	['operator', 'player'],
-	['PMCs', 'Players'],
+	['players', 'Players'],
 	['Operator', 'Player'],
 	['Al Mazrah', 'Verdansk'],
 	['Verdansk', 'Verdansk'],
 	['scav-run', 'scav-run'],
-	['extract', 'extract'],
-	['tarkovcheats.org', 'tarkovcheats.org'],
-	['Trucos Tarkov', 'Trucos Escape from Tarkov'],
-	['Triches Tarkov', 'Triches Escape from Tarkov'],
-	['Cheats Tarkov', 'Cheats Escape from Tarkov'],
+	['base camp', 'base camp'],
+	['groundedcheats.com', 'groundedcheats.com'],
+	['Trucos Grounded', 'Trucos Grounded'],
+	['Triches Grounded', 'Triches Grounded'],
+	['Cheats Grounded', 'Cheats Grounded'],
 ];
 
 function apply(content) {
@@ -52,18 +52,18 @@ for (const file of ['ui-strings-part1.mjs', 'ui-strings-part2.mjs']) {
 	console.log('Fixed', file);
 }
 
-// Fix pages-en battleye key
+// Fix pages-en easy-anti-cheat key
 let pagesEn = await readFile(path.join(ROOT, 'scripts/i18n-data/pages-en.mjs'), 'utf8');
-pagesEn = pagesEn.replace(/\tbattleye: \{/, "\t'battleye': {");
-pagesEn = pagesEn.replace(/Escape from Tarkov Tarkov/g, 'Escape from Tarkov');
-pagesEn = pagesEn.replace(/for Escape from Tarkov Tarkov/g, 'for Escape from Tarkov');
+pagesEn = pagesEn.replace(/\teasy-anti-cheat: \{/, "\t'anti-cheat': {");
+pagesEn = pagesEn.replace(/Grounded Grounded/g, 'Grounded');
+pagesEn = pagesEn.replace(/for Grounded Grounded/g, 'for Grounded');
 await writeFile(path.join(ROOT, 'scripts/i18n-data/pages-en.mjs'), pagesEn);
 
 // Fix pages-i18n
 let pagesI18n = await readFile(path.join(ROOT, 'scripts/i18n-data/pages-i18n.mjs'), 'utf8');
 pagesI18n = apply(pagesI18n);
-pagesI18n = pagesI18n.replace(/'battleye'/g, "'battleye'");
-pagesI18n = pagesI18n.replace(/battleye:/g, "'battleye':");
+pagesI18n = pagesI18n.replace(/'anti-cheat'/g, "'anti-cheat'");
+pagesI18n = pagesI18n.replace(/easy-anti-cheat:/g, "'anti-cheat':");
 await writeFile(path.join(ROOT, 'scripts/i18n-data/pages-i18n.mjs'), pagesI18n);
 
 // Fix generate-i18n pages count

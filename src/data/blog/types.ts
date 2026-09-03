@@ -1,17 +1,36 @@
 import type { LocaleCode } from '../i18n/locales';
 
 export type BlogImageKey =
-	| 'hero'
-	| 'espWallhack'
-	| 'aimbotCombat'
-	| 'aimbotSkeleton'
-	| 'squadFight'
-	| 'headerArt'
-	| 'cheatsPackage'
-	| 'playerEsp'
-	| 'rebootFight'
-	| 'battleRoyaleCombat'
-	| 'battleRoyaleIslandMap';
+	| 'blog01'
+	| 'blog02'
+	| 'blog03'
+	| 'blog04'
+	| 'blog05'
+	| 'blog06'
+	| 'blog07'
+	| 'blog08'
+	| 'blog09'
+	| 'blog10'
+	| 'blog11'
+	| 'blog12'
+	| 'blog13'
+	| 'blog14'
+	| 'blog15'
+	| 'blog16'
+	| 'blog17'
+	| 'blog18'
+	| 'blog19'
+	| 'blog20'
+	| 'blog21'
+	| 'blog22'
+	| 'blog23'
+	| 'blog24'
+	| 'blog25'
+	| 'blog26'
+	| 'blog27'
+	| 'blog28'
+	| 'blog29'
+	| 'blog30';
 
 export type BlogSection = {
 	h2: string;

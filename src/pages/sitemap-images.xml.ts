@@ -14,8 +14,8 @@ const PREFERRED_HOSTS = [
 	englishPaths.features,
 	englishPaths.pricing,
 	englishPaths.updates,
-	englishPaths['tarkov-esp'],
-	englishPaths['tarkov-aimbot'],
+	englishPaths['grounded-god-mode'],
+	englishPaths['grounded-trainer'],
 	englishPaths.hacks,
 	englishPaths.undetected,
 ] as const;

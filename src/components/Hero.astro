@@ -32,16 +32,15 @@ const monthly = productInfo.plans.find((p) => p.id === 'monthly') ?? productInfo
 		--hero-pad-y: clamp(1rem, 2vw, 1.75rem);
 		--hero-stack: clamp(0.5rem, 1.1vw, 0.75rem);
 		/*
-		 * Bar is a bit shorter than the native 1024/409 (~2.5:1) art.
-		 * Image stays undistorted via object-fit: cover (crops edges, no squash).
+		 * Cinematic backyard sunset — wider than the old ultra-wide bar.
 		 */
-		--hero-ratio: 3.15 / 1;
+		--hero-ratio: 2.35 / 1;
 		position: relative;
 		isolation: isolate;
 		display: grid;
 		align-items: center;
 		overflow: hidden;
-		background: #050506;
+		background: #0f1a14;
 		aspect-ratio: var(--hero-ratio);
 		width: 100%;
 		height: auto;
@@ -63,10 +62,9 @@ const monthly = productInfo.plans.find((p) => p.id === 'monthly') ?? productInfo
 	}
 
 	.hero__media img {
-		/* Cover = keep proportions; crop top/bottom of the shorter bar */
+		/* Cover = keep proportions; favor sunset center and squad */
 		object-fit: cover;
-		/* Prefer a bit higher in the frame so the USEC head stays in view */
-		object-position: right 28%;
+		object-position: center 42%;
 		image-rendering: auto;
 		transform: translateZ(0);
 		animation: hero-in 0.9s ease-out both;
@@ -79,10 +77,11 @@ const monthly = productInfo.plans.find((p) => p.id === 'monthly') ?? productInfo
 		pointer-events: none;
 		background: linear-gradient(
 			90deg,
-			rgba(5, 5, 6, 0.78) 0%,
-			rgba(5, 5, 6, 0.52) 34%,
-			rgba(5, 5, 6, 0.18) 58%,
-			transparent 74%
+			rgba(15, 26, 20, 0.9) 0%,
+			rgba(15, 26, 20, 0.68) 32%,
+			rgba(27, 77, 62, 0.22) 55%,
+			rgba(230, 126, 34, 0.08) 72%,
+			transparent 88%
 		);
 	}
 
@@ -153,14 +152,14 @@ const monthly = productInfo.plans.find((p) => p.id === 'monthly') ?? productInfo
 		min-height: 3rem;
 		padding: 0.55rem 0.55rem 0.55rem 1.05rem;
 		border-radius: 999px;
-		background: #fff;
-		color: #09090b;
+		background: linear-gradient(135deg, #ff8c00 0%, #f1c40f 100%);
+		color: #1a1208;
 		font-size: 0.9375rem;
 		font-weight: 700;
 		letter-spacing: -0.015em;
 		box-shadow:
-			0 1px 0 color-mix(in srgb, #fff 70%, transparent) inset,
-			0 10px 28px rgba(0, 0, 0, 0.28);
+			0 1px 0 color-mix(in srgb, #fff 45%, transparent) inset,
+			0 10px 28px rgba(230, 126, 34, 0.35);
 		transition:
 			transform 0.18s ease,
 			background 0.18s ease,
@@ -185,24 +184,25 @@ const monthly = productInfo.plans.find((p) => p.id === 'monthly') ?? productInfo
 		margin-left: auto;
 		padding: 0 0.85rem;
 		border-radius: 999px;
-		background: #09090b;
-		color: #fff;
+		background: #1b4d3e;
+		color: #f1c40f;
 		font-size: 0.8125rem;
 		font-weight: 700;
 		letter-spacing: -0.01em;
 	}
 
 	.hero__buy:hover {
-		background: #f4f4f5;
-		color: #09090b;
+		background: linear-gradient(135deg, #ffa733 0%, #f7d04f 100%);
+		color: #1a1208;
 		transform: translateY(-2px);
 		box-shadow:
-			0 1px 0 color-mix(in srgb, #fff 70%, transparent) inset,
-			0 14px 32px rgba(0, 0, 0, 0.34);
+			0 1px 0 color-mix(in srgb, #fff 45%, transparent) inset,
+			0 14px 32px rgba(230, 126, 34, 0.45);
 	}
 
 	.hero__buy:hover .hero__buy-price {
-		background: var(--magenta);
+		background: #0f1a14;
+		color: #ff8c00;
 	}
 
 	.hero__buy:active {
@@ -240,7 +240,7 @@ const monthly = productInfo.plans.find((p) => p.id === 'monthly') ?? productInfo
 		width: 1rem;
 		height: 1rem;
 		flex-shrink: 0;
-		color: var(--magenta-soft);
+		color: #f1c40f;
 	}
 
 	@keyframes rise {
@@ -297,16 +297,16 @@ const monthly = productInfo.plans.find((p) => p.id === 'monthly') ?? productInfo
 
 		.hero__media img {
 			object-fit: cover;
-			object-position: 78% 10%;
+			object-position: center 35%;
 		}
 
 		.hero__veil {
 			background: linear-gradient(
 				180deg,
-				rgba(5, 5, 6, 0.28) 0%,
-				rgba(5, 5, 6, 0.52) 42%,
-				rgba(5, 5, 6, 0.9) 78%,
-				rgba(5, 5, 6, 0.96) 100%
+				rgba(15, 26, 20, 0.2) 0%,
+				rgba(15, 26, 20, 0.55) 38%,
+				rgba(15, 26, 20, 0.88) 72%,
+				rgba(15, 26, 20, 0.96) 100%
 			);
 		}
 

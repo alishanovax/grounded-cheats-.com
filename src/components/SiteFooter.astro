@@ -3,6 +3,7 @@ import SiteFooterApp from './react/SiteFooter';
 import { getLocalizedPath } from '../data/i18n/routing';
 import { defaultLocale, type LocaleCode } from '../data/i18n/locales';
 import { getBlogBasePath } from '../data/blog/helpers';
+import { getGuidesBasePath } from '../data/guides/helpers';
 import { siteConfig } from '../data/site';
 
 interface Props {
@@ -13,12 +14,13 @@ const locale = Astro.props.locale ?? defaultLocale;
 
 const explore = [
 	{ labelKey: 'nav.hacks', href: getLocalizedPath('hacks', locale) },
-	{ labelKey: 'nav.esp', href: getLocalizedPath('tarkov-esp', locale) },
-	{ labelKey: 'nav.aimbot', href: getLocalizedPath('tarkov-aimbot', locale) },
+	{ labelKey: 'nav.esp', href: getLocalizedPath('grounded-god-mode', locale) },
+	{ labelKey: 'nav.trainer', href: getLocalizedPath('grounded-trainer', locale) },
 	{ labelKey: 'common.featureList', href: getLocalizedPath('features', locale) },
 	{ labelKey: 'common.pricingPlans', href: getLocalizedPath('pricing', locale) },
 	{ labelKey: 'nav.faq', href: getLocalizedPath('faq', locale) },
 	{ labelKey: 'common.blog', href: getBlogBasePath(locale) },
+	{ label: 'Guides', href: getGuidesBasePath(locale) },
 ];
 
 const help = [

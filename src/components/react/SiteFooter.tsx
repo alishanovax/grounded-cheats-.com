@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import I18nProvider from './I18nProvider';
 
-type FooterLink = { labelKey: string; href: string };
+type FooterLink = { labelKey?: string; label?: string; href: string };
 
 type Props = {
 	locale: string;
@@ -56,7 +56,7 @@ function SiteFooterInner({ siteName, supportEmail, shareUrl, explore, help }: Pr
 					<ul>
 						{explore.map((link) => (
 							<li key={link.href}>
-								<a href={link.href}>{t(link.labelKey)}</a>
+								<a href={link.href}>{link.label ?? t(link.labelKey!)}</a>
 							</li>
 						))}
 					</ul>
@@ -66,7 +66,7 @@ function SiteFooterInner({ siteName, supportEmail, shareUrl, explore, help }: Pr
 					<ul>
 						{help.map((link) => (
 							<li key={link.href}>
-								<a href={link.href}>{t(link.labelKey)}</a>
+								<a href={link.href}>{link.label ?? t(link.labelKey!)}</a>
 							</li>
 						))}
 						<li>
