@@ -1,5 +1,5 @@
 # CI Workers Builds project name (repo: groundedcheats)
-name = "groundedcheats"
+name = "grounded-cheats--com"
 compatibility_date = "2026-01-01"
 main = "src/worker.ts"
 
